@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資訊班成果發表會 | Code & Bird</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+
+    <div id="loader">
+        <img src="assets/images/mascot.png" class="loading-bird" alt="Loading...">
+        <p>小肥啾正在努力改 Bug...</p>
+    </div>
+
+    <nav>
+        <div class="logo">資訊班成發</div>
+        <ul>
+            <li><a href="#home">首頁</a></li>
+            <li><a href="#projects">專題展示</a></li>
+            <li><a href="#members">成員介紹</a></li>
+            <li><button id="dark-mode-toggle">🌙 Coding Night</button></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <div class="hero-content" data-aos="fade-up">
+            <h1 class="peek-trigger">Code with Heart <span class="bird-peek">🐤</span></h1>
+            <p>2026 資訊班年度成果發表會</p>
+            <a href="#register" class="btn">立即報名</a>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 data-aos="fade-right">專題展示</h2>
+        <div class="project-grid">
+            <div class="project-card" data-aos="zoom-in">
+                <div class="tags">
+                    <span class="tag python">Python</span>
+                    <span class="tag ai">AI</span>
+                </div>
+                <h3>智慧型小肥啾辨識器</h3>
+                <p>運用 CNN 模型自動辨識窗外的鳥類...</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script>AOS.init();</script>
+</body>
+</html>

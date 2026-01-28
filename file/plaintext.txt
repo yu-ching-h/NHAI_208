@@ -1,0 +1,14 @@
+my-project/
+├── index.html              # 網頁主要內容
+├── css/
+│   └── style.css           # 所有的樣式（含深色模式、動畫）
+├── js/
+│   ├── main.js             # 網頁邏輯（切換模式、捲動效果）
+│   └── interaction.js      # 小肥啾互動、雷達圖、投票邏輯
+├── assets/                 # 放置靜態資源
+│   ├── images/
+│   │   ├── mascot.png      # 你的小肥啾（去背圖）
+│   │   ├── projects/       # 專題預覽圖
+│   │   └── members/        # 成員頭像
+│   └── icons/              # 太陽/月亮圖示、社群圖示
+└── README.md               # 專案說明文件
