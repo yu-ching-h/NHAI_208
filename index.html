@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithms - 內湖高中第 14 屆資訊成發</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body data-theme="light">
+    <!-- Loading Animation -->
+    <div id="loading" class="loading-screen">
+        <div class="builder-bird">
+            <div class="bird">
+                <img src="小肥啾.PNG" alt="小肥啾" class="mascot-img">
+            </div>
+            <div class="building-blocks">
+                <span>&lt;/&gt;</span>
+                <span>{ }</span>
+                <span>( )</span>
+            </div>
+        </div>
+        <p>小肥啾正在建造你的網站...</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="小肥啾.PNG" alt="小肥啾" class="mascot-img nav-mascot">
+                <span>Algorithms</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="about.html">關於我們</a></li>
+                <li><a href="schedule.html">節目表</a></li>
+                <li><a href="projects.html">專題作品</a></li>
+                <li><a href="team.html">成員介紹</a></li>
+                <li><a href="register.html">活動報名</a></li>
+            </ul>
+            <div class="theme-toggle">
+                <input type="checkbox" id="theme-switch">
+                <label for="theme-switch" class="switch-label">
+                    <span class="sun">☀️</span>
+                    <span class="moon">🌙</span>
+                </label>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="highlight">Algorithms</span>
+                </h1>
+                <p class="hero-subtitle">內湖高中第 14 屆資訊成發</p>
+                <p class="hero-description">將邏輯思考轉化為程式實作，山雀象徵著敏捷與探索的精神</p>
+                <div class="countdown-timer">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">00</span>
+                        <span class="countdown-label">天</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">00</span>
+                        <span class="countdown-label">時</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">00</span>
+                        <span class="countdown-label">分</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">00</span>
+                        <span class="countdown-label">秒</span>
+                    </div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="register.html" class="btn btn-primary">立即報名</a>
+                    <a href="projects.html" class="btn btn-secondary">專題作品搶先看</a>
+                </div>
+            </div>
+            <div class="hero-mascot">
+                <div class="mascot-container">
+                    <div class="mascot-bird">
+                        <img src="小肥啾.PNG" alt="小肥啾" class="mascot-img hero-mascot-img">
+                    </div>
+                    <div class="speech-bubble">
+                        <p>歡迎來到內湖高中資訊成發！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Info Section -->
+    <section class="quick-info">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-icon">📅</div>
+                    <h3>活動日期</h3>
+                    <p>2026年4月22日</p>
+                    <p>13:00 - 17:00</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">📍</div>
+                    <h3>活動地點</h3>
+                    <p>臺北市內湖高級中學</p>
+                    <p>國際會議廳</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">🎯</div>
+                    <h3>展示主題</h3>
+                    <p>演算法學習與實作</p>
+                    <p>9 個創新專題</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">🎫</div>
+                    <h3>參加方式</h3>
+                    <p>完全免費</p>
+                    <p>提供精美茶點</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Cards -->
+    <section class="nav-cards">
+        <div class="container">
+            <h2 class="section-title">探索更多</h2>
+            <div class="cards-grid">
+                <a href="about.html" class="nav-card">
+                    <div class="card-icon">👥</div>
+                    <h3>關於我們</h3>
+                    <p>了解內湖高中 208 班的故事</p>
+                </a>
+                <a href="schedule.html" class="nav-card">
+                    <div class="card-icon">⏰</div>
+                    <h3>節目表</h3>
+                    <p>查看詳細的活動時程安排</p>
+                </a>
+                <a href="projects.html" class="nav-card">
+                    <div class="card-icon">💻</div>
+                    <h3>專題作品</h3>
+                    <p>欣賞 9 個精彩的專題展示</p>
+                </a>
+                <a href="team.html" class="nav-card">
+                    <div class="card-icon">🌟</div>
+                    <h3>成員介紹</h3>
+                    <p>認識我們的開發團隊</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Algorithms</h3>
+                    <p>內湖高中第 14 屆資訊成發</p>
+                </div>
+                <div class="footer-section">
+                    <h4>快速連結</h4>
+                    <ul>
+                        <li><a href="about.html">關於我們</a></li>
+                        <li><a href="projects.html">專題作品</a></li>
+                        <li><a href="team.html">成員介紹</a></li>
+                        <li><a href="register.html">活動報名</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>活動資訊</h4>
+                    <p>📧 1stnhai@gmail.com</p>
+                    <p>📱 Instagram: nhai1st_208</p>
+                    <p>📍 臺北市內湖高級中學 國際會議廳</p>
+                    <p>📅 2026.04.22 | 13:00-17:00</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 內湖高中 208 班. Made with ❤️ and lots of ☕</p>
+                <div class="footer-mascot">
+                    <img src="小肥啾.PNG" alt="小肥啾" class="mascot-img footer-mascot-img">
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+<script src="scripts/main.js"></script>
+</html>
