@@ -11,6 +11,94 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 <body data-theme="light">
+    <script>
+        // 開發中控制開關 - 改為 false 就恢復正常頁面
+        const UNDER_CONSTRUCTION = false;
+        
+        if (UNDER_CONSTRUCTION) {
+            document.body.innerHTML = `
+                <style>
+                    .under-construction {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100vh;
+                        background: var(--bg-primary, #F2E8DC);
+                        z-index: 9999;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-family: 'Noto Sans TC', sans-serif;
+                    }
+                    
+                    .construction-content {
+                        text-align: center;
+                        padding: 2rem;
+                        color: var(--text-primary, #262014);
+                    }
+                    
+                    .construction-mascot {
+                        width: 150px;
+                        height: 150px;
+                        margin-bottom: 2rem;
+                        animation: bounce 2s infinite;
+                        object-fit: contain;
+                        border-radius: 50%;
+                    }
+                    
+                    .construction-content h1 {
+                        font-size: 2.5rem;
+                        margin-bottom: 1rem;
+                        color: var(--accent-color, #8C6E54);
+                    }
+                    
+                    .construction-content p {
+                        font-size: 1.2rem;
+                        margin-bottom: 0.5rem;
+                        color: var(--text-secondary, #593825);
+                    }
+                    
+                    @keyframes bounce {
+                        0%, 20%, 50%, 80%, 100% {
+                            transform: translateY(0);
+                        }
+                        40% {
+                            transform: translateY(-20px);
+                        }
+                        60% {
+                            transform: translateY(-10px);
+                        }
+                    }
+                    
+                    .back-link {
+                        margin-top: 2rem;
+                        display: inline-block;
+                        padding: 1rem 2rem;
+                        background: var(--accent-color, #8C6E54);
+                        color: white;
+                        text-decoration: none;
+                        border-radius: 25px;
+                        font-weight: 600;
+                        transition: transform 0.3s ease;
+                    }
+                    
+                    .back-link:hover {
+                        transform: translateY(-2px);
+                    }
+                </style>
+                <div class="under-construction">
+                    <div class="construction-content">
+                        <img src="小肥啾.PNG" alt="小肥啾" class="construction-mascot">
+                        <h1>🚧 頁面開發中 🚧</h1>
+                        <p>小肥啾正在努力建設節目表頁面...</p>
+                        <p>敬請期待詳細時程安排！</p>
+                        <a href="index.html" class="back-link">← 回到首頁</a>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -42,36 +130,6 @@
             <div class="header-content">
                 <h1>節目表</h1>
                 <p>2026年4月22日 完整活動時程</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Event Info -->
-    <section class="event-info">
-        <div class="container">
-            <div class="info-banner">
-                <div class="banner-content">
-                    <div class="event-details">
-                        <h2>📅 活動資訊</h2>
-                        <div class="details-grid">
-                            <div class="detail">
-                                <strong>日期：</strong>2026年4月22日 (星期三)
-                            </div>
-                            <div class="detail">
-                                <strong>時間：</strong>13:00 - 17:00
-                            </div>
-                            <div class="detail">
-                                <strong>地點：</strong>臺北市內湖高級中學 國際會議廳
-                            </div>
-                            <div class="detail">
-                                <strong>主題：</strong>Algorithms - 演算法學習與實作成果展示
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mascot-display">
-                        <img src="小肥啾.PNG" alt="小肥啾" class="event-mascot">
-                    </div>
-                </div>
             </div>
         </div>
     </section>

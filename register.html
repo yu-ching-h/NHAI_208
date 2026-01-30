@@ -11,6 +11,94 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 <body data-theme="light">
+    <script>
+        // 開發中控制開關 - 改為 false 就恢復正常頁面
+        const UNDER_CONSTRUCTION = false;
+        
+        if (UNDER_CONSTRUCTION) {
+            document.body.innerHTML = `
+                <style>
+                    .under-construction {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100vh;
+                        background: var(--bg-primary, #F2E8DC);
+                        z-index: 9999;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-family: 'Noto Sans TC', sans-serif;
+                    }
+                    
+                    .construction-content {
+                        text-align: center;
+                        padding: 2rem;
+                        color: var(--text-primary, #262014);
+                    }
+                    
+                    .construction-mascot {
+                        width: 150px;
+                        height: 150px;
+                        margin-bottom: 2rem;
+                        animation: bounce 2s infinite;
+                        object-fit: contain;
+                        border-radius: 50%;
+                    }
+                    
+                    .construction-content h1 {
+                        font-size: 2.5rem;
+                        margin-bottom: 1rem;
+                        color: var(--accent-color, #8C6E54);
+                    }
+                    
+                    .construction-content p {
+                        font-size: 1.2rem;
+                        margin-bottom: 0.5rem;
+                        color: var(--text-secondary, #593825);
+                    }
+                    
+                    @keyframes bounce {
+                        0%, 20%, 50%, 80%, 100% {
+                            transform: translateY(0);
+                        }
+                        40% {
+                            transform: translateY(-20px);
+                        }
+                        60% {
+                            transform: translateY(-10px);
+                        }
+                    }
+                    
+                    .back-link {
+                        margin-top: 2rem;
+                        display: inline-block;
+                        padding: 1rem 2rem;
+                        background: var(--accent-color, #8C6E54);
+                        color: white;
+                        text-decoration: none;
+                        border-radius: 25px;
+                        font-weight: 600;
+                        transition: transform 0.3s ease;
+                    }
+                    
+                    .back-link:hover {
+                        transform: translateY(-2px);
+                    }
+                </style>
+                <div class="under-construction">
+                    <div class="construction-content">
+                        <img src="小肥啾.PNG" alt="小肥啾" class="construction-mascot">
+                        <h1>🚧 頁面開發中 🚧</h1>
+                        <p>小肥啾正在努力建設活動報名頁面...</p>
+                        <p>敬請期待報名功能！</p>
+                        <a href="index.html" class="back-link">← 回到首頁</a>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -41,7 +129,7 @@
         <div class="container">
             <div class="header-content">
                 <h1>活動報名</h1>
-                <p>免費參加內湖高中資訊成發，還有精美茶點</p>
+                <p>免費參加內湖高中資訊成發</p>
             </div>
         </div>
     </section>
@@ -70,13 +158,6 @@
                                 <p>直接與學生開發團隊面對面交流</p>
                             </div>
                         </div>
-                        <div class="highlight-item">
-                            <div class="highlight-icon">🍕</div>
-                            <div class="highlight-content">
-                                <h4>精美茶點</h4>
-                                <p>提供豐富茶點，讓您舒適參與活動</p>
-                            </div>
-                        </div>
                     </div>
 
                     <ul class="event-details">
@@ -84,7 +165,7 @@
                         <li><strong>🕐 時間：</strong>下午1:00 - 5:00</li>
                         <li><strong>📍 地點：</strong>臺北市內湖高級中學 國際會議廳</li>
                         <li><strong>🎫 費用：</strong>完全免費</li>
-                        <li><strong>👔 服裝：</strong>輕鬆休閒即可</li>
+
                         <li><strong>🚗 交通：</strong>捷運文德站步行 8 分鐘</li>
                     </ul>
                     
@@ -110,6 +191,7 @@
                 </div>
 
                 <form class="register-form" id="registerForm">
+                    <!-- 表單將通過 JavaScript 提交到 Google Apps Script -->
                     <div class="form-header">
                         <h3>立即報名</h3>
                         <p>填寫以下資訊完成報名</p>
@@ -125,26 +207,19 @@
                         <input type="email" id="email" name="email" required placeholder="example@email.com">
                     </div>
 
-                    <div class="form-group">
-                        <label for="phone">聯絡電話</label>
-                        <input type="tel" id="phone" name="phone" placeholder="09XX-XXX-XXX">
-                    </div>
 
-                    <div class="form-group">
-                        <label for="company">公司/學校</label>
-                        <input type="text" id="company" name="company" placeholder="請輸入您的公司或學校名稱">
-                    </div>
+
+
 
                     <div class="form-group">
                         <label for="title">職稱/身份</label>
                         <select id="title" name="title">
                             <option value="">請選擇</option>
-                            <option value="student">學生</option>
-                            <option value="teacher">教師</option>
-                            <option value="parent">家長</option>
-                            <option value="engineer">工程師</option>
-                            <option value="manager">主管</option>
-                            <option value="other">其他</option>
+                            <option value="特邀貴賓">特邀貴賓</option>
+                            <option value="內湖高中學生">內湖高中學生</option>
+                            <option value="內湖高中師長">內湖高中師長</option>
+                            <option value="內中208班家長">內中208班家長</option>
+                            <option value="其他">其他</option>
                         </select>
                     </div>
 
@@ -152,16 +227,16 @@
                         <label for="interest">最感興趣的專題</label>
                         <select id="interest" name="interest">
                             <option value="">請選擇</option>
-                            <option value="bus">超進化公車</option>
-                            <option value="network">AI 網路封包系統</option>
-                            <option value="iot">方寸間的智慧</option>
-                            <option value="game1">毛廁異世界</option>
-                            <option value="face">臉部辨識鎖</option>
-                            <option value="drone">天空之眼</option>
-                            <option value="game2">天際捕手</option>
-                            <option value="medical">折斷的骨氣</option>
-                            <option value="robot">凱比機器人</option>
-                            <option value="all">全部都有興趣</option>
+                            <option value="超進化公車">超進化公車</option>
+                            <option value="AI 網路封包系統">AI 網路封包系統</option>
+                            <option value="方寸間的智慧">方寸間的智慧</option>
+                            <option value="毛廁異世界">毛廁異世界</option>
+                            <option value="臉部辨識鎖">臉部辨識鎖</option>
+                            <option value="天空之眼">天空之眼</option>
+                            <option value="天際捕手">天際捕手</option>
+                            <option value="折斷的骨氣">折斷的骨氣</option>
+                            <option value="凱比機器人">凱比機器人</option>
+                            <option value="全部都有興趣">全部都有興趣</option>
                         </select>
                     </div>
 
@@ -170,58 +245,15 @@
                         <textarea id="expectations" name="expectations" rows="4" placeholder="請分享您對這次成發的期待或想了解的內容..."></textarea>
                     </div>
 
-                    <div class="form-group checkbox-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="newsletter" name="newsletter">
-                            <span class="checkmark"></span>
-                            我願意收到相關活動資訊
-                        </label>
-                    </div>
 
-                    <div class="form-group checkbox-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="privacy" name="privacy" required>
-                            <span class="checkmark"></span>
-                            我已閱讀並同意個人資料使用條款 *
-                        </label>
-                    </div>
 
                     <button type="submit" class="btn btn-primary btn-full">
                         <span class="btn-text">立即報名</span>
                         <span class="btn-icon">🎉</span>
                     </button>
 
-                    <p class="form-note">* 為必填欄位。報名成功後將收到確認信件。</p>
-                </form>
-            </div>
-        </div>
-    </section>
 
-    <!-- Why Attend -->
-    <section class="why-attend">
-        <div class="container">
-            <h2 class="section-title">為什麼要參加？</h2>
-            <div class="reasons-grid">
-                <div class="reason-item">
-                    <div class="reason-icon">🚀</div>
-                    <h3>見證學習成果</h3>
-                    <p>親眼看見高中生如何將演算法理論轉化為實際應用，感受程式教育的成效</p>
-                </div>
-                <div class="reason-item">
-                    <div class="reason-icon">💡</div>
-                    <h3>獲得靈感啟發</h3>
-                    <p>9 個不同領域的專題展示，或許能為您的工作或學習帶來新的想法</p>
-                </div>
-                <div class="reason-item">
-                    <div class="reason-icon">🤝</div>
-                    <h3>支持教育發展</h3>
-                    <p>您的參與是對程式教育最大的鼓勵，幫助學生建立信心繼續學習</p>
-                </div>
-                <div class="reason-item">
-                    <div class="reason-icon">🌟</div>
-                    <h3>發掘未來人才</h3>
-                    <p>這些學生可能是未來的科技新星，提早認識優秀的年輕開發者</p>
-                </div>
+                </form>
             </div>
         </div>
     </section>

@@ -1129,3 +1129,96 @@ document.addEventListener('DOMContentLoaded', function() {
         initializeWebsite();
     }, 100);
 });
+// Google Apps Script 表單提交處理
+document.addEventListener('DOMContentLoaded', function() {
+    const registerForm = document.getElementById('registerForm');
+    
+    if (registerForm) {
+        registerForm.addEventListener('submit', async function(e) {
+            e.preventDefault(); // 防止默認提交
+            
+            // 顯示提交中狀態
+            const submitBtn = registerForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<span class="btn-text">提交中...</span><span class="btn-icon">⏳</span>';
+            submitBtn.disabled = true;
+            
+            // 收集表單資料
+            const formData = new FormData(registerForm);
+            
+            // 直接從 DOM 元素獲取值，確保準確性
+            const titleSelect = document.getElementById('title');
+            const interestSelect = document.getElementById('interest');
+            
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                title: titleSelect.value, // 直接從 DOM 獲取
+                interest: interestSelect.value, // 直接從 DOM 獲取
+                expectations: formData.get('expectations'),
+                timestamp: new Date().toLocaleString('zh-TW', {
+                    timeZone: 'Asia/Taipei',
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                })
+            };
+            
+            try {
+                // 暫時的測試模式 - 顯示友善訊息
+                // 模擬成功提交
+                setTimeout(() => {
+                    alert('✅ 報名資料已收集！\n\n' + 
+                          '姓名：' + data.name + '\n' +
+                          '信箱：' + data.email + '\n' +
+                          '身份：' + (data.title || '未填寫') + '\n' +
+                          '興趣：' + (data.interest || '未填寫') + '\n\n' +
+                          '注意：這是測試模式，實際部署時會自動發送郵件通知。');
+                    window.location.href = 'thanks.html';
+                }, 1000);
+                
+                /* 
+                // 正式版本 - 發送到 Google Apps Script
+                const response = await fetch('https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLhtMkXfnY6CMv3JqB8Iwo7zRZMhyMborBhZlCMKghwOt-KYm4ZF2Uvbes0ngcAH0g-xbm3OyEWgLY7m4ma4inu2BGGACnpoa6Td_Ju1wbpueHmM5ekx5kC0BFYDrgQ2Lvn11L-XiUJc6ehhLMft_lVHqa_cfDxF6uWHUnPHLE4oYSrnTFnTJg8FznErkFpEes_YwThm2bkoyrU5mpBHDxj2yefkjFRUJ9ughEi1_LvbFggn9QM6gVtJwI1RaCSe3QcEsUmy7XB0SI-RGqXW4VHEKEnGuw&lib=MVGyZ3LCjXzCNVu1tLZrOnVnitNJBIhCK', {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    // 成功提交，跳轉到感謝頁面
+                    window.location.href = 'thanks.html';
+                } else {
+                    throw new Error('提交失敗');
+                }
+                */
+            } catch (error) {
+                console.error('提交錯誤:', error);
+                alert('提交失敗，請稍後再試或聯絡我們：1stnhai@gmail.com');
+                
+                // 恢復按鈕狀態
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+        
+        // 表單驗證增強
+        const requiredFields = registerForm.querySelectorAll('[required]');
+        requiredFields.forEach(field => {
+            field.addEventListener('blur', function() {
+                if (!this.value.trim()) {
+                    this.style.borderColor = '#ff6b6b';
+                } else {
+                    this.style.borderColor = 'var(--accent-color)';
+                }
+            });
+        });
+    }
+});
