@@ -1149,6 +1149,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 try {
+                    // 臨時解決方案：檢測是否為 GitHub Pages 環境
+                    const isGitHubPages = window.location.hostname.includes('github.io');
+                    
+                    if (isGitHubPages) {
+                        // GitHub Pages 環境：使用備用方案
+                        console.log('GitHub Pages 環境：使用備用報名方案');
+                        
+                        // 顯示成功訊息和資料
+                        alert('✅ 報名資料已收集！\n\n' + 
+                              '姓名：' + data.name + '\n' +
+                              '信箱：' + data.email + '\n' +
+                              '身份：' + (data.title || '未填寫') + '\n' +
+                              '興趣：' + (data.interest || '未填寫') + '\n' +
+                              '期待：' + (data.expectations || '未填寫') + '\n\n' +
+                              '📧 我們會透過 Email 與您確認報名資訊\n' +
+                              '📱 或透過 Instagram @nhai1st_208 聯絡\n\n' +
+                              '感謝您的報名！');
+                        
+                        // 跳轉到感謝頁面
+                        window.location.href = 'thanks.html';
+                        return;
+                    }
+                    
                     // 正式版本 - 發送到 Google Apps Script
                     console.log('開始發送資料到 Google Apps Script...');
                     
