@@ -1149,26 +1149,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 try {
-                    // 臨時解決方案：模擬成功提交 (用於本地測試)
-                    console.log('本地測試模式：模擬發送到 Google Apps Script');
-                    console.log('資料:', data);
-                    
-                    // 模擬 API 延遲
-                    await new Promise(resolve => setTimeout(resolve, 1000));
-                    
-                    // 顯示成功訊息
-                    alert('✅ 報名成功！(測試模式)\n\n' + 
-                          '姓名：' + data.name + '\n' +
-                          '信箱：' + data.email + '\n' +
-                          '身份：' + (data.title || '未填寫') + '\n' +
-                          '興趣：' + (data.interest || '未填寫') + '\n\n' +
-                          '注意：這是本地測試模式\n' +
-                          '實際部署到正式網站時會自動同步到 Google Sheets');
-                    
-                    // 跳轉到感謝頁面
-                    window.location.href = 'thanks.html';
-                    
-                    /* 正式版本 - 當 CORS 問題解決後啟用
+                    // 正式版本 - 發送到 Google Apps Script
                     console.log('開始發送資料到 Google Apps Script...');
                     
                     const response = await fetch('https://script.google.com/macros/s/AKfycbyv8caLRiecqr3V7osT9TlWTCIJ7fZ7g6aaMPw3VAZCiPVfgETMOnYXqfLc_m4wDL2R/exec', {
@@ -1196,6 +1177,25 @@ document.addEventListener('DOMContentLoaded', function() {
                     } else {
                         throw new Error(result.message || '提交失敗');
                     }
+                    
+                    /* 本地測試模式 - 已停用
+                    console.log('本地測試模式：模擬發送到 Google Apps Script');
+                    console.log('資料:', data);
+                    
+                    // 模擬 API 延遲
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    
+                    // 顯示成功訊息
+                    alert('✅ 報名成功！(測試模式)\n\n' + 
+                          '姓名：' + data.name + '\n' +
+                          '信箱：' + data.email + '\n' +
+                          '身份：' + (data.title || '未填寫') + '\n' +
+                          '興趣：' + (data.interest || '未填寫') + '\n\n' +
+                          '注意：這是本地測試模式\n' +
+                          '實際部署到正式網站時會自動同步到 Google Sheets');
+                    
+                    // 跳轉到感謝頁面
+                    window.location.href = 'thanks.html';
                     */
                 } catch (error) {
                     console.error('提交錯誤詳細資訊:', error);
