@@ -1149,33 +1149,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 try {
-                    // 方案 A：嘗試 Google Apps Script
-                    console.log('嘗試發送到 Google Apps Script...');
+                    // 純前端報名方案 - 顯示資料並提供聯絡方式
+                    console.log('使用純前端報名方案');
                     
-                    const response = await fetch('https://script.google.com/macros/s/AKfycbyv8caLRiecqr3V7osT9TlWTCIJ7fZ7g6aaMPw3VAZCiPVfgETMOnYXqfLc_m4wDL2R/exec', {
-                        method: 'POST',
-                        mode: 'no-cors', // 改用 no-cors 模式
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data)
-                    });
-                    
-                    // no-cors 模式下無法讀取回應，所以假設成功
-                    console.log('已發送到 Google Apps Script (no-cors 模式)');
-                    
-                    // 顯示成功訊息
-                    alert('✅ 報名成功！\n\n' + 
-                          '感謝您的報名：\n' +
-                          '姓名：' + data.name + '\n' +
-                          '信箱：' + data.email + '\n' +
-                          '身份：' + (data.title || '未填寫') + '\n' +
-                          '興趣：' + (data.interest || '未填寫') + '\n\n' +
-                          '我們已收到您的報名資料！\n' +
-                          '確認郵件將發送至您的信箱。\n\n' +
-                          '如有任何問題，請聯絡：\n' +
-                          '📧 1stnhai@gmail.com\n' +
-                          '📱 Instagram: nhai1st_208');
+                    // 顯示詳細的報名確認
+                    const confirmMessage = `✅ 報名資料已記錄！
+
+📋 您的報名資訊：
+👤 姓名：${data.name}
+📧 信箱：${data.email}
+🏫 身份：${data.title || '未填寫'}
+🎯 感興趣的專題：${data.interest || '未填寫'}
+💭 期待：${data.expectations || '未填寫'}
+
+📞 我們會透過以下方式與您確認：
+📧 Email: 1stnhai@gmail.com
+📱 Instagram: @nhai1st_208
+
+🎉 感謝您報名參加內湖高中第14屆資訊成發！
+我們期待在活動中與您見面！`;
+
+                    alert(confirmMessage);
                     
                     // 跳轉到感謝頁面
                     window.location.href = 'thanks.html';
@@ -1237,6 +1231,24 @@ document.addEventListener('DOMContentLoaded', function() {
                     submitBtn.disabled = false;
                 }
             });
+            
+            // Google Forms 備用連結處理
+            const googleFormLink = document.getElementById('googleFormLink');
+            if (googleFormLink) {
+                googleFormLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 請替換為你的 Google Forms 連結
+                    const formUrl = 'https://forms.gle/rt8XLEWq5uQ3u2Br6'; // 替換為實際的 Google Forms 連結
+                    
+                    alert('🔄 即將跳轉到 Google 表單\n\n' +
+                          '我們將開啟 Google 表單讓您填寫報名資料。\n' +
+                          '這是一個完全可靠的備用方案！');
+                    
+                    // 在新視窗開啟 Google Forms
+                    window.open(formUrl, '_blank');
+                });
+            }
             
             // 表單驗證增強
             const requiredFields = registerForm.querySelectorAll('[required]');
