@@ -26,16 +26,16 @@ function handleLoading() {
     
     if (!loadingScreen) return; // 如果沒有 loading screen 就跳過
     
-    // Simulate loading time
+    // Simulate loading time - 縮短載入時間
     setTimeout(() => {
-        loadingScreen.classList.add('hidden');
+        loadingScreen.style.opacity = '0';
         // Remove from DOM after transition
         setTimeout(() => {
             if (loadingScreen.parentNode) {
                 loadingScreen.parentNode.removeChild(loadingScreen);
             }
         }, 500);
-    }, 2000);
+    }, 800); // 從 2000ms 改為 800ms
 }
 
 // Theme Toggle Functionality
@@ -1211,20 +1211,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     // 跳轉到感謝頁面
                     window.location.href = 'thanks.html';
                     */
-                } catch (error) {
-                    console.error('提交錯誤詳細資訊:', error);
-                    
-                    let errorMessage = '提交失敗，請稍後再試';
-                    
-                    if (error.message.includes('HTTP 錯誤')) {
-                        errorMessage = '伺服器連線錯誤，請檢查網路連線';
-                    } else if (error.message.includes('CORS')) {
-                        errorMessage = 'Google Apps Script 設定問題，請聯絡管理員';
-                    } else if (error.message) {
-                        errorMessage = error.message;
-                    }
-                    
-                    alert('❌ ' + errorMessage + '\n\n如果問題持續發生，請直接聯絡我們：\n📧 1stnhai@gmail.com\n📱 Instagram: nhai1st_208');
                     
                     // 恢復按鈕狀態
                     submitBtn.innerHTML = originalText;

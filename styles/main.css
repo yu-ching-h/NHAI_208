@@ -124,6 +124,11 @@ body:not([data-theme]) {
   transition: opacity 0.5s ease;
 }
 
+.loading-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .builder-bird {
   position: relative;
   margin-bottom: 2rem;
