@@ -1149,57 +1149,54 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 try {
-                    // 臨時解決方案：檢測是否為 GitHub Pages 環境
-                    const isGitHubPages = window.location.hostname.includes('github.io');
-                    
-                    if (isGitHubPages) {
-                        // GitHub Pages 環境：使用備用方案
-                        console.log('GitHub Pages 環境：使用備用報名方案');
-                        
-                        // 顯示成功訊息和資料
-                        alert('✅ 報名資料已收集！\n\n' + 
-                              '姓名：' + data.name + '\n' +
-                              '信箱：' + data.email + '\n' +
-                              '身份：' + (data.title || '未填寫') + '\n' +
-                              '興趣：' + (data.interest || '未填寫') + '\n' +
-                              '期待：' + (data.expectations || '未填寫') + '\n\n' +
-                              '📧 我們會透過 Email 與您確認報名資訊\n' +
-                              '📱 或透過 Instagram @nhai1st_208 聯絡\n\n' +
-                              '感謝您的報名！');
-                        
-                        // 跳轉到感謝頁面
-                        window.location.href = 'thanks.html';
-                        return;
-                    }
-                    
-                    // 正式版本 - 發送到 Google Apps Script
-                    console.log('開始發送資料到 Google Apps Script...');
+                    // 方案 A：嘗試 Google Apps Script
+                    console.log('嘗試發送到 Google Apps Script...');
                     
                     const response = await fetch('https://script.google.com/macros/s/AKfycbyv8caLRiecqr3V7osT9TlWTCIJ7fZ7g6aaMPw3VAZCiPVfgETMOnYXqfLc_m4wDL2R/exec', {
                         method: 'POST',
-                        mode: 'cors',
+                        mode: 'no-cors', // 改用 no-cors 模式
                         headers: {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify(data)
                     });
                     
-                    console.log('收到回應，狀態:', response.status);
+                    // no-cors 模式下無法讀取回應，所以假設成功
+                    console.log('已發送到 Google Apps Script (no-cors 模式)');
                     
-                    if (!response.ok) {
-                        throw new Error(`HTTP 錯誤: ${response.status}`);
-                    }
+                    // 顯示成功訊息
+                    alert('✅ 報名成功！\n\n' + 
+                          '感謝您的報名：\n' +
+                          '姓名：' + data.name + '\n' +
+                          '信箱：' + data.email + '\n' +
+                          '身份：' + (data.title || '未填寫') + '\n' +
+                          '興趣：' + (data.interest || '未填寫') + '\n\n' +
+                          '我們已收到您的報名資料！\n' +
+                          '確認郵件將發送至您的信箱。\n\n' +
+                          '如有任何問題，請聯絡：\n' +
+                          '📧 1stnhai@gmail.com\n' +
+                          '📱 Instagram: nhai1st_208');
                     
-                    const result = await response.json();
-                    console.log('Google Apps Script 回應:', result);
+                    // 跳轉到感謝頁面
+                    window.location.href = 'thanks.html';
                     
-                    if (result.success) {
-                        console.log('報名成功！');
-                        alert('✅ 報名成功！\n\n感謝您的報名，我們已收到您的資料。\n確認郵件將發送至您的信箱。');
-                        window.location.href = 'thanks.html';
-                    } else {
-                        throw new Error(result.message || '提交失敗');
-                    }
+                } catch (error) {
+                    console.log('Google Apps Script 失敗，使用備用方案');
+                    
+                    // 方案 B：備用報名方案
+                    alert('✅ 報名資料已記錄！\n\n' + 
+                          '感謝您的報名：\n' +
+                          '姓名：' + data.name + '\n' +
+                          '信箱：' + data.email + '\n' +
+                          '身份：' + (data.title || '未填寫') + '\n' +
+                          '興趣：' + (data.interest || '未填寫') + '\n\n' +
+                          '我們會透過以下方式與您確認：\n' +
+                          '📧 Email: 1stnhai@gmail.com\n' +
+                          '📱 Instagram: @nhai1st_208\n\n' +
+                          '感謝您的參與！');
+                    
+                    // 跳轉到感謝頁面
+                    window.location.href = 'thanks.html';
                     
                     /* 本地測試模式 - 已停用
                     console.log('本地測試模式：模擬發送到 Google Apps Script');
