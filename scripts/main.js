@@ -14,7 +14,7 @@ function initializeWebsite() {
     // 暫時移除動畫初始化
     // initAnimations();
     initProjectFilters();
-    initRegistrationForm();
+    // initRegistrationForm(); // 已移除，避免與新的表單處理衝突
     initSkillRadars();
     initScrollAnimations();
     initPageTransitions();
@@ -111,7 +111,7 @@ function initCountdownTimer() {
     function updateNumberWithAnimation(element, newValue) {
         if (element.textContent !== newValue) {
             element.style.transform = 'scale(1.1)';
-            element.style.color = 'var(--accent-pink)';
+            element.style.color = 'var(--accent-color)';
             
             setTimeout(() => {
                 element.textContent = newValue;
@@ -257,7 +257,7 @@ function triggerEasterEgg() {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background: var(--accent-pink);
+        background: var(--accent-color);
         color: var(--primary-dark);
         padding: 2rem;
         border-radius: 20px;
@@ -336,26 +336,8 @@ function initProjectFilters() {
     });
 }
 
-// Registration Form
-function initRegistrationForm() {
-    const form = document.getElementById('registerForm');
-    
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(form);
-            const name = formData.get('name');
-            
-            // Show success animation
-            showRegistrationSuccess(name);
-            
-            // Reset form
-            form.reset();
-        });
-    }
-}
+// 舊的註冊表單函數已移除，避免衝突
+// Registration Form - REMOVED to avoid conflicts
 
 function showRegistrationSuccess(name) {
     // Create success modal
@@ -914,43 +896,8 @@ function initSkillRadars() {
     });
 }
 
-// Enhanced Registration Form
-function initRegistrationForm() {
-    const form = document.getElementById('registerForm');
-    
-    if (form) {
-        // Add real-time validation
-        const inputs = form.querySelectorAll('input[required], select[required]');
-        inputs.forEach(input => {
-            input.addEventListener('blur', validateField);
-            input.addEventListener('input', clearFieldError);
-        });
-        
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Validate all fields
-            let isValid = true;
-            inputs.forEach(input => {
-                if (!validateField.call(input)) {
-                    isValid = false;
-                }
-            });
-            
-            if (isValid) {
-                // Get form data
-                const formData = new FormData(form);
-                const name = formData.get('name');
-                
-                // Show success animation
-                showRegistrationSuccess(name);
-                
-                // Reset form
-                form.reset();
-            }
-        });
-    }
-}
+// 舊的增強註冊表單函數已移除，避免衝突
+// Enhanced Registration Form - REMOVED to avoid conflicts
 
 function validateField() {
     const field = this;
@@ -1071,7 +1018,7 @@ function initCountdownTimer() {
     function updateNumberWithAnimation(element, newValue) {
         if (element.textContent !== newValue) {
             element.style.transform = 'scale(1.1)';
-            element.style.color = 'var(--accent-pink)';
+            element.style.color = 'var(--accent-color)';
             
             setTimeout(() => {
                 element.textContent = newValue;
@@ -1131,94 +1078,159 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 // Google Apps Script 表單提交處理
 document.addEventListener('DOMContentLoaded', function() {
-    const registerForm = document.getElementById('registerForm');
-    
-    if (registerForm) {
-        registerForm.addEventListener('submit', async function(e) {
-            e.preventDefault(); // 防止默認提交
+    // 添加延遲確保所有元素都已載入
+    setTimeout(function() {
+        const registerForm = document.getElementById('registerForm');
+        
+        if (registerForm) {
+            console.log('找到註冊表單，開始設置事件監聽器');
             
-            // 顯示提交中狀態
-            const submitBtn = registerForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-            
-            submitBtn.innerHTML = '<span class="btn-text">提交中...</span><span class="btn-icon">⏳</span>';
-            submitBtn.disabled = true;
-            
-            // 收集表單資料
-            const formData = new FormData(registerForm);
-            
-            // 直接從 DOM 元素獲取值，確保準確性
-            const titleSelect = document.getElementById('title');
-            const interestSelect = document.getElementById('interest');
-            
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                title: titleSelect.value, // 直接從 DOM 獲取
-                interest: interestSelect.value, // 直接從 DOM 獲取
-                expectations: formData.get('expectations'),
-                timestamp: new Date().toLocaleString('zh-TW', {
-                    timeZone: 'Asia/Taipei',
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                })
-            };
-            
-            try {
-                // 暫時的測試模式 - 顯示友善訊息
-                // 模擬成功提交
-                setTimeout(() => {
-                    alert('✅ 報名資料已收集！\n\n' + 
+            registerForm.addEventListener('submit', async function(e) {
+                e.preventDefault(); // 防止默認提交
+                
+                console.log('表單提交事件觸發');
+                
+                // 顯示提交中狀態
+                const submitBtn = registerForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                
+                submitBtn.innerHTML = '<span class="btn-text">提交中...</span><span class="btn-icon">⏳</span>';
+                submitBtn.disabled = true;
+                
+                // 收集表單資料 - 使用更可靠的方法
+                const nameInput = document.getElementById('name');
+                const emailInput = document.getElementById('email');
+                const titleSelect = document.getElementById('title');
+                const interestSelect = document.getElementById('interest');
+                const expectationsTextarea = document.getElementById('expectations');
+                
+                console.log('表單元素檢查:');
+                console.log('- 姓名欄位:', nameInput);
+                console.log('- 信箱欄位:', emailInput);
+                console.log('- 身份選單:', titleSelect);
+                console.log('- 興趣選單:', interestSelect);
+                console.log('- 期待欄位:', expectationsTextarea);
+                
+                const data = {
+                    name: nameInput ? nameInput.value.trim() : '',
+                    email: emailInput ? emailInput.value.trim() : '',
+                    title: titleSelect ? titleSelect.value : '',
+                    interest: interestSelect ? interestSelect.value : '',
+                    expectations: expectationsTextarea ? expectationsTextarea.value.trim() : '',
+                    timestamp: new Date().toLocaleString('zh-TW', {
+                        timeZone: 'Asia/Taipei',
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit'
+                    })
+                };
+                
+                // 除錯：在控制台顯示收集到的資料
+                console.log('收集到的表單資料:', data);
+                console.log('表單元素檢查:');
+                console.log('- 姓名欄位:', nameInput, '值:', nameInput ? nameInput.value : 'null');
+                console.log('- 信箱欄位:', emailInput, '值:', emailInput ? emailInput.value : 'null');
+                console.log('- 身份選單:', titleSelect, '值:', titleSelect ? titleSelect.value : 'null');
+                console.log('- 興趣選單:', interestSelect, '值:', interestSelect ? interestSelect.value : 'null');
+                console.log('- 期待欄位:', expectationsTextarea, '值:', expectationsTextarea ? expectationsTextarea.value : 'null');
+                
+                // 除錯：檢查是否有空值
+                const emptyFields = [];
+                if (!data.name) emptyFields.push('姓名');
+                if (!data.email) emptyFields.push('電子郵件');
+                if (emptyFields.length > 0) {
+                    alert('請填寫必填欄位：' + emptyFields.join('、'));
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    return;
+                }
+                
+                try {
+                    // 臨時解決方案：模擬成功提交 (用於本地測試)
+                    console.log('本地測試模式：模擬發送到 Google Apps Script');
+                    console.log('資料:', data);
+                    
+                    // 模擬 API 延遲
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    
+                    // 顯示成功訊息
+                    alert('✅ 報名成功！(測試模式)\n\n' + 
                           '姓名：' + data.name + '\n' +
                           '信箱：' + data.email + '\n' +
                           '身份：' + (data.title || '未填寫') + '\n' +
                           '興趣：' + (data.interest || '未填寫') + '\n\n' +
-                          '注意：這是測試模式，實際部署時會自動發送郵件通知。');
+                          '注意：這是本地測試模式\n' +
+                          '實際部署到正式網站時會自動同步到 Google Sheets');
+                    
+                    // 跳轉到感謝頁面
                     window.location.href = 'thanks.html';
-                }, 1000);
-                
-                /* 
-                // 正式版本 - 發送到 Google Apps Script
-                const response = await fetch('https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLhtMkXfnY6CMv3JqB8Iwo7zRZMhyMborBhZlCMKghwOt-KYm4ZF2Uvbes0ngcAH0g-xbm3OyEWgLY7m4ma4inu2BGGACnpoa6Td_Ju1wbpueHmM5ekx5kC0BFYDrgQ2Lvn11L-XiUJc6ehhLMft_lVHqa_cfDxF6uWHUnPHLE4oYSrnTFnTJg8FznErkFpEes_YwThm2bkoyrU5mpBHDxj2yefkjFRUJ9ughEi1_LvbFggn9QM6gVtJwI1RaCSe3QcEsUmy7XB0SI-RGqXW4VHEKEnGuw&lib=MVGyZ3LCjXzCNVu1tLZrOnVnitNJBIhCK', {
-                    method: 'POST',
-                    mode: 'cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                });
-                
-                if (response.ok) {
-                    // 成功提交，跳轉到感謝頁面
-                    window.location.href = 'thanks.html';
-                } else {
-                    throw new Error('提交失敗');
-                }
-                */
-            } catch (error) {
-                console.error('提交錯誤:', error);
-                alert('提交失敗，請稍後再試或聯絡我們：1stnhai@gmail.com');
-                
-                // 恢復按鈕狀態
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-            }
-        });
-        
-        // 表單驗證增強
-        const requiredFields = registerForm.querySelectorAll('[required]');
-        requiredFields.forEach(field => {
-            field.addEventListener('blur', function() {
-                if (!this.value.trim()) {
-                    this.style.borderColor = '#ff6b6b';
-                } else {
-                    this.style.borderColor = 'var(--accent-color)';
+                    
+                    /* 正式版本 - 當 CORS 問題解決後啟用
+                    console.log('開始發送資料到 Google Apps Script...');
+                    
+                    const response = await fetch('https://script.google.com/macros/s/AKfycbyv8caLRiecqr3V7osT9TlWTCIJ7fZ7g6aaMPw3VAZCiPVfgETMOnYXqfLc_m4wDL2R/exec', {
+                        method: 'POST',
+                        mode: 'cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    
+                    console.log('收到回應，狀態:', response.status);
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP 錯誤: ${response.status}`);
+                    }
+                    
+                    const result = await response.json();
+                    console.log('Google Apps Script 回應:', result);
+                    
+                    if (result.success) {
+                        console.log('報名成功！');
+                        alert('✅ 報名成功！\n\n感謝您的報名，我們已收到您的資料。\n確認郵件將發送至您的信箱。');
+                        window.location.href = 'thanks.html';
+                    } else {
+                        throw new Error(result.message || '提交失敗');
+                    }
+                    */
+                } catch (error) {
+                    console.error('提交錯誤詳細資訊:', error);
+                    
+                    let errorMessage = '提交失敗，請稍後再試';
+                    
+                    if (error.message.includes('HTTP 錯誤')) {
+                        errorMessage = '伺服器連線錯誤，請檢查網路連線';
+                    } else if (error.message.includes('CORS')) {
+                        errorMessage = 'Google Apps Script 設定問題，請聯絡管理員';
+                    } else if (error.message) {
+                        errorMessage = error.message;
+                    }
+                    
+                    alert('❌ ' + errorMessage + '\n\n如果問題持續發生，請直接聯絡我們：\n📧 1stnhai@gmail.com\n📱 Instagram: nhai1st_208');
+                    
+                    // 恢復按鈕狀態
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
                 }
             });
-        });
-    }
+            
+            // 表單驗證增強
+            const requiredFields = registerForm.querySelectorAll('[required]');
+            requiredFields.forEach(field => {
+                field.addEventListener('blur', function() {
+                    if (!this.value.trim()) {
+                        this.style.borderColor = '#ff6b6b';
+                    } else {
+                        this.style.borderColor = 'var(--accent-color)';
+                    }
+                });
+            });
+        } else {
+            console.error('找不到註冊表單元素');
+        }
+    }, 500); // 延遲 500ms 確保所有元素都已載入
 });

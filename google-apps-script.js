@@ -12,7 +12,7 @@
 // 設定區域 - 請修改以下設定
 const CONFIG = {
   SPREADSHEET_ID: '1jV6HgJJb1UgMy2fBVxEpQSUX5x_YtPFs6wMAfpQBhdE', // 替換為你的 Google Sheets ID
-  SHEET_NAME: '內湖高中資訊成發報名資料', // 工作表名稱
+  SHEET_NAME: '報名資料', // 工作表名稱
   NOTIFICATION_EMAIL: '1stnhai@gmail.com', // 通知信箱
   SEND_CONFIRMATION: true, // 是否發送確認信給報名者
 };
@@ -32,7 +32,12 @@ function doPost(e) {
           success: false,
           message: '姓名和電子郵件為必填欄位'
         }))
-        .setMimeType(ContentService.MimeType.JSON);
+        .setMimeType(ContentService.MimeType.JSON)
+        .setHeaders({
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type'
+        });
     }
     
     // 寫入 Google Sheets
@@ -53,7 +58,12 @@ function doPost(e) {
           message: '報名成功！',
           rowNumber: result.rowNumber
         }))
-        .setMimeType(ContentService.MimeType.JSON);
+        .setMimeType(ContentService.MimeType.JSON)
+        .setHeaders({
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type'
+        });
     } else {
       throw new Error(result.message);
     }
@@ -66,8 +76,26 @@ function doPost(e) {
         success: false,
         message: '系統錯誤，請稍後再試'
       }))
-      .setMimeType(ContentService.MimeType.JSON);
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      });
   }
+}
+
+/**
+ * 處理 OPTIONS 請求 - CORS 預檢請求
+ */
+function doOptions(e) {
+  return ContentService
+    .createTextOutput('')
+    .setHeaders({
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type'
+    });
 }
 
 /**
@@ -76,7 +104,12 @@ function doPost(e) {
 function doGet(e) {
   return ContentService
     .createTextOutput('內湖高中資訊成發報名系統 API 運作正常')
-    .setMimeType(ContentService.MimeType.TEXT);
+    .setMimeType(ContentService.MimeType.TEXT)
+    .setHeaders({
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type'
+    });
 }
 
 /**

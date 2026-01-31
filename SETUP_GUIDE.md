@@ -33,7 +33,6 @@
 7. 存取權：任何人
 8. 點擊 "部署"
 9. **複製網路應用程式網址**
-https://script.google.com/macros/s/AKfycbyv8caLRiecqr3V7osT9TlWTCIJ7fZ7g6aaMPw3VAZCiPVfgETMOnYXqfLc_m4wDL2R/exec
 
 ### 第四步：更新前端代碼
 在 `scripts/main.js` 中找到這行：
