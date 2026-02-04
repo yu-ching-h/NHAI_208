@@ -964,9 +964,21 @@ body:not([data-theme]) {
 
 .project-stats {
   display: flex;
-  gap: 2rem;
+  justify-content: space-between;
+  align-items: center;
   color: white;
   font-weight: 600;
+  background: rgba(0, 0, 0, 0.3);
+  border: 3px solid var(--secondary-brown);
+  border-radius: 12px;
+  
+  padding: 0.5rem 1.5rem;    
+  min-height: 40px;          
+  width: 53%;   
+  max-width: 600px;          
+  margin: 1rem auto;         
+
+  backdrop-filter: blur(5px);
 }
 
 .project-content {
@@ -2437,4 +2449,213 @@ body:not([data-theme]) {
     flex-direction: column;
     align-items: center;
   }
+}
+
+/* 投票系統樣式 */
+.popularity-vote {
+    color: #FFD700;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all 0.3s ease;
+}
+
+/* 只有在非 project-stats 內才使用漸層背景 */
+.popularity-vote:not(.project-stats .popularity-vote) {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #262014;
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+}
+
+.vote-icon {
+    font-size: 1.1rem;
+    animation: pulse 2s infinite;
+}
+
+.vote-count {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.btn-vote {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.btn-vote:hover:not(:disabled) {
+    background: linear-gradient(135deg, #45a049, #4CAF50);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.btn-vote:disabled {
+    background: linear-gradient(135deg, #cccccc, #999999);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.btn-vote:disabled .vote-text::after {
+    content: " (尚未開放)";
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.btn-vote.voted {
+    background: linear-gradient(135deg, #FF6B6B, #FF5252);
+}
+
+.btn-vote.voted .vote-text::after {
+    content: " ✓";
+    font-weight: bold;
+}
+
+/* 投票成功動畫 */
+@keyframes voteSuccess {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.vote-success {
+    animation: voteSuccess 0.6s ease;
+}
+
+/* 投票統計顯示 */
+.voting-stats {
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    box-shadow: 0 4px 20px var(--shadow);
+}
+
+.voting-stats h3 {
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.vote-ranking {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.vote-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.vote-item:hover {
+    transform: translateX(5px);
+}
+
+.vote-item.top-3 {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: var(--primary-dark);
+    font-weight: 600;
+}
+
+.vote-item.top-3:nth-child(1) {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+}
+
+.vote-item.top-3:nth-child(2) {
+    background: linear-gradient(135deg, #C0C0C0, #A8A8A8);
+}
+
+.vote-item.top-3:nth-child(3) {
+    background: linear-gradient(135deg, #CD7F32, #B8860B);
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* 投票開放倒數計時 */
+.voting-countdown {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--accent-color), var(--secondary-brown));
+    color: white;
+    border-radius: 15px;
+    margin: 2rem 0;
+}
+
+.voting-countdown h3 {
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.countdown-timer-vote {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.countdown-item-vote {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 60px;
+}
+
+.countdown-number-vote {
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #FFD700;
+}
+
+.countdown-label-vote {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+/* 專題統計區域內部元素樣式 */
+.project-stats span {
+    padding: 0.5rem 0.8rem;
+    border-radius: 8px;
+    background: transparent;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.project-stats .popularity-vote {
+    background: transparent;
+    color: white;
+    border: none;
+    box-shadow: none;
+    font-weight: 700;
+}
+
+.project-stats .popularity-vote .vote-icon {
+    color: #FFD700;
+}
+
+/* 確保在深色主題下也有好的對比 */
+[data-theme="dark"] .project-stats {
+    border-color: var(--accent-color);
+    background: rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .project-stats span {
+    background: transparent;
 }

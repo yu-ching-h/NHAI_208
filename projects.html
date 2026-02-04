@@ -137,6 +137,30 @@
     <!-- Projects Section -->
     <section class="projects-section">
         <div class="container">
+            <!-- 投票倒數計時區域 -->
+            <div class="voting-countdown" id="votingCountdown">
+                <h3>🗳️ 人氣獎投票倒數計時</h3>
+                <p>投票將在成發開始時開放</p>
+                <div class="countdown-timer-vote">
+                    <div class="countdown-item-vote">
+                        <span class="countdown-number-vote days">00</span>
+                        <span class="countdown-label-vote">天</span>
+                    </div>
+                    <div class="countdown-item-vote">
+                        <span class="countdown-number-vote hours">00</span>
+                        <span class="countdown-label-vote">時</span>
+                    </div>
+                    <div class="countdown-item-vote">
+                        <span class="countdown-number-vote minutes">00</span>
+                        <span class="countdown-label-vote">分</span>
+                    </div>
+                    <div class="countdown-item-vote">
+                        <span class="countdown-number-vote seconds">00</span>
+                        <span class="countdown-label-vote">秒</span>
+                    </div>
+                </div>
+            </div>
+
             <div class="project-filters">
                 <button class="filter-btn active" data-filter="all">全部作品</button>
                 <button class="filter-btn" data-filter="ai">AI 系統</button>
@@ -152,15 +176,16 @@
 
             <div class="projects-grid">
 <!--=====================================================================================================================-->
-                <div class="project-card featured" data-category="cv">
+                <div class="project-card" data-category="cv">
                     <div class="project-image">
-                        <img src="https://via.placeholder.com/400x250/593825/F2E8DC?text=臉部辨識鎖" alt="臉部辨識鎖">
+                        <img src="blue-gradient.png" alt="臉部辨識鎖">
                         <div class="project-overlay">
                             <div class="project-stats">
-                                <span>第一組</span>
-                                <span>📊 112 commits</span>
-                                <span>⭐ 22 stars</span>
-                                <span>🏆 最佳技術獎</span>
+                                <span>📊 第一組</span>
+                                <span class="popularity-vote" data-project="face-recognition">
+                                    <span class="vote-icon">🏆</span>
+                                    <span class="vote-count">0</span> 票
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -174,23 +199,30 @@
                             <h4>功能：</h4>
                             <ul>
                                 <li>特色待放</li>
+                            </ul>
                         </div>
                         <div class="project-buttons">
                             <a href="#" class="btn btn-small">查看詳情</a>
                             <a href="#" class="btn btn-small btn-secondary">GitHub</a>
                             <a href="#" class="btn btn-small btn-outline">Demo</a>
+                            <button class="btn btn-small btn-vote" data-project="face-recognition" disabled>
+                                <span class="vote-text">投票給我們</span>
+                                <span class="vote-icon">🗳️</span>
+                            </button>
                         </div>
                     </div>
                 </div>
 <!--=====================================================================================================================-->
                 <div class="project-card" data-category="iot">
                     <div class="project-image">
-                        <img src="https://via.placeholder.com/400x250/FDE2E4/593825?text=天際捕手" alt="天際捕手">
+                        <img src="blue-gradient.png" alt="天際捕手">
                         <div class="project-overlay">
                             <div class="project-stats">
-                                <span>第二組</span>
-                                <span>⭐ 安全防護</span>
-                                <span>🏢 智慧城市</span>
+                                <span>📊 第二組</span>
+                                <span class="popularity-vote" data-project="sky-catcher">
+                                    <span class="vote-icon">🏆</span>
+                                    <span class="vote-count">0</span> 票
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -210,18 +242,24 @@
                             <a href="#" class="btn btn-small">查看詳情</a>
                             <a href="#" class="btn btn-small btn-secondary">GitHub</a>
                             <a href="#" class="btn btn-small btn-outline">Demo</a>
+                            <button class="btn btn-small btn-vote" data-project="sky-catcher" disabled>
+                                <span class="vote-text">投票給我們</span>
+                                <span class="vote-icon">🗳️</span>
+                            </button>
                         </div>
                     </div>
                 </div>
 <!--=====================================================================================================================-->
                 <div class="project-card" data-category="ai">
                     <div class="project-image">
-                        <img src="https://via.placeholder.com/400x250/8E97A4/FFFFFF?text=折斷的骨氣" alt="折斷的骨氣">
+                        <img src="blue-gradient.png" alt="折斷的骨氣">
                         <div class="project-overlay">
                             <div class="project-stats">
-                                <span>第三組</span>
-                                <span>⭐ AI對決</span>
-                                <span>🤖 神經核心</span>
+                                <span>📊 第三組</span>
+                                <span class="popularity-vote" data-project="broken-spirit">
+                                    <span class="vote-icon">🏆</span>
+                                    <span class="vote-count">0</span> 票
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -245,45 +283,67 @@
                             <a href="#" class="btn btn-small">查看詳情</a>
                             <a href="#" class="btn btn-small btn-secondary">GitHub</a>
                             <a href="#" class="btn btn-small btn-outline">對戰Demo</a>
+                            <button class="btn btn-small btn-vote" data-project="broken-spirit" disabled>
+                                <span class="vote-text">投票給我們</span>
+                                <span class="vote-icon">🗳️</span>
+                            </button>
                         </div>
                     </div>
                 </div>
 <!--=====================================================================================================================-->                
                 <div class="project-card" data-category="ai">
                     <div class="project-image">
-                        <img src="https://via.placeholder.com/400x250/FDE2E4/593825?text=AI+網路封包系統" alt="AI 網路封包系統">
+                        <img src="blue-gradient.png" alt="AI 網路封包系統">
                         <div class="project-overlay">
                             <div class="project-stats">
-                                <span>第四組</span>
-                                <span>📊 76 commits</span>
-                                <span>⭐ 15 stars</span>
+                                <span>📊 第四組</span>
+                                <span class="popularity-vote" data-project="ai-network">
+                                    <span class="vote-icon">🏆</span>
+                                    <span class="vote-count">0</span> 票
+                                </span>
                             </div>
                         </div>
                     </div>
                     <div class="project-content">
                         <h3>🔒 AI 網路封包系統</h3>
-                        <p>簡介待放</p>
+                        <p>本專案開發一套基於 LSTM 深度學習架構的即時網路入侵偵測系統（NIDS）。系統透過高效能封包擷取技術，監控網卡原始流量並轉化為流特徵（Flow-based），利用 CSE-CIC-IDS2018 權威數據集訓練，使模型具備優異的時序分析能力。本系統不僅能精準識別 DoS、Botnet 及 SQL 注入等複雜攻擊，更專注於捕捉異常行為的動態規律，實現自動化且智能化的網路安全威脅預警與即時防禦。</p>
                         <div class="tech-tags">
                             <span class="tag">Python</span>
                             <span class="tag">Deep Learning</span>
                             <span class="tag">Network Security</span>
                             <span class="tag">Packet Analysis</span>
+                            <span class="tag">LSTM</span>
+                        </div>
+                        <div class="project-features">
+                            <h4>特色：</h4>
+                            <ul>
+                                <li>搭載 LSTM 架構 AI 模型</li>
+                                <li>學習攻擊行為模式並有效偵測時序性攻擊</li>
+                                <li>嘗試使用 AutoEncoder 創新架構偵測 Zeroday Attack</li>
+                                <li>國防 AI 應用創意競賽 佳作、特別獎</li>
+                            </ul>
                         </div>
                         <div class="project-buttons">
                             <a href="#" class="btn btn-small">查看詳情</a>
                             <a href="#" class="btn btn-small btn-secondary">GitHub</a>
+                            <button class="btn btn-small btn-vote" data-project="ai-network" disabled>
+                                <span class="vote-text">投票給我們</span>
+                                <span class="vote-icon">🗳️</span>
+                            </button>
                         </div>
                     </div>
                 </div>
 <!--=====================================================================================================================-->
                 <div class="project-card" data-category="drone">
                     <div class="project-image">
-                        <img src="https://via.placeholder.com/400x250/8C6E54/FFFFFF?text=天空之眼" alt="天空之眼">
+                        <img src="blue-gradient.png" alt="天空之眼">
                         <div class="project-overlay">
                             <div class="project-stats">
-                                <span>第五組</span>
-                                <span>📊 87 commits</span>
-                                <span>⭐ 16 stars</span>
+                                <span>📊 第五組</span>
+                                <span class="popularity-vote" data-project="sky-eye">
+                                    <span class="vote-icon">🏆</span>
+                                    <span class="vote-count">0</span> 票
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -299,18 +359,24 @@
                         <div class="project-buttons">
                             <a href="#" class="btn btn-small">查看詳情</a>
                             <a href="#" class="btn btn-small btn-secondary">GitHub</a>
+                            <button class="btn btn-small btn-vote" data-project="sky-eye" disabled>
+                                <span class="vote-text">投票給我們</span>
+                                <span class="vote-icon">🗳️</span>
+                            </button>
                         </div>
                     </div>
                 </div>
 <!--=====================================================================================================================--> 
-                <div class="project-card featured" data-category="iot">
+                <div class="project-card" data-category="iot">
                     <div class="project-image">
-                        <img src="https://via.placeholder.com/400x250/8C6E54/FFFFFF?text=Mega公車" alt="Mega公車">
+                        <img src="blue-gradient.png" alt="Mega公車">
                         <div class="project-overlay">
                             <div class="project-stats">
-                                <span>第六組</span>
-                                <span>⭐ 智慧交通</span>
-                                <span>🏆 最佳創意獎</span>
+                                <span>📊 第六組</span>
+                                <span class="popularity-vote" data-project="mega-bus">
+                                    <span class="vote-icon">🏆</span>
+                                    <span class="vote-count">0</span> 票
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -328,18 +394,24 @@
                             <a href="#" class="btn btn-small">查看詳情</a>
                             <a href="#" class="btn btn-small btn-secondary">GitHub</a>
                             <a href="#" class="btn btn-small btn-outline">Demo</a>
+                            <button class="btn btn-small btn-vote" data-project="mega-bus" disabled>
+                                <span class="vote-text">投票給我們</span>
+                                <span class="vote-icon">🗳️</span>
+                            </button>
                         </div>
                     </div>
                 </div>
 <!--=====================================================================================================================-->
                 <div class="project-card" data-category="game">
                     <div class="project-image">
-                        <img src="https://via.placeholder.com/400x250/D9CAB8/262014?text=毛廁異世界" alt="毛廁異世界">
+                        <img src="blue-gradient.png" alt="毛廁異世界">
                         <div class="project-overlay">
                             <div class="project-stats">
-                                <span>第七組</span>
-                                <span>⭐ 寓教於樂</span>
-                                <span>🎮 遊戲開發</span>
+                                <span>📊 第七組</span>
+                                <span class="popularity-vote" data-project="toilet-world">
+                                    <span class="vote-icon">🏆</span>
+                                    <span class="vote-count">0</span> 票
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -367,18 +439,24 @@
                             <a href="#" class="btn btn-small">查看詳情</a>
                             <a href="#" class="btn btn-small btn-secondary">GitHub</a>
                             <a href="#" class="btn btn-small btn-outline">試玩</a>
+                            <button class="btn btn-small btn-vote" data-project="toilet-world" disabled>
+                                <span class="vote-text">投票給我們</span>
+                                <span class="vote-icon">🗳️</span>
+                            </button>
                         </div>
                     </div>
                 </div>
 <!--=====================================================================================================================-->
-                <div class="project-card featured" data-category="robotics">
+                <div class="project-card" data-category="robotics">
                     <div class="project-image">
-                        <img src="https://via.placeholder.com/400x250/D9CAB8/262014?text=凱比機器人" alt="凱比機器人">
+                        <img src="blue-gradient.png" alt="凱比機器人">
                         <div class="project-overlay">
                             <div class="project-stats">
-                                <span>第八組</span>
-                                <span>⭐ 迎賓接待</span>
-                                <span>🏆 人氣獎</span>
+                                <span>📊 第八組</span>
+                                <span class="popularity-vote" data-project="kebi-robot">
+                                    <span class="vote-icon">🏆</span>
+                                    <span class="vote-count">0</span> 票
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -406,18 +484,24 @@
                             <a href="#" class="btn btn-small">查看詳情</a>
                             <a href="#" class="btn btn-small btn-secondary">GitHub</a>
                             <a href="#" class="btn btn-small btn-outline">互動Demo</a>
+                            <button class="btn btn-small btn-vote" data-project="kebi-robot" disabled>
+                                <span class="vote-text">投票給我們</span>
+                                <span class="vote-icon">🗳️</span>
+                            </button>
                         </div>
                     </div>
                 </div>
 <!--=====================================================================================================================-->
                 <div class="project-card" data-category="ai">
                     <div class="project-image">
-                        <img src="https://via.placeholder.com/400x250/8E97A4/FFFFFF?text=方寸間的智慧" alt="方寸間的智慧">
+                        <img src="blue-gradient.png" alt="方寸間的智慧">
                         <div class="project-overlay">
                             <div class="project-stats">
-                                <span>第九組</span>
-                                <span>⭐ 學習助理</span>
-                                <span>🎓 教育科技</span>
+                                <span>📊 第九組</span>
+                                <span class="popularity-vote" data-project="smart-space">
+                                    <span class="vote-icon">🏆</span>
+                                    <span class="vote-count">0</span> 票
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -446,6 +530,10 @@
                             <a href="#" class="btn btn-small">查看詳情</a>
                             <a href="#" class="btn btn-small btn-secondary">GitHub</a>
                             <a href="#" class="btn btn-small btn-outline">App Demo</a>
+                            <button class="btn btn-small btn-vote" data-project="smart-space" disabled>
+                                <span class="vote-text">投票給我們</span>
+                                <span class="vote-icon">🗳️</span>
+                            </button>
                         </div>
                     </div>
                 </div>

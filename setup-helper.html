@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sheets 報名系統設定助手</title>
+    <style>
+        body {
+            font-family: 'Noto Sans TC', Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .step {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-left: 4px solid #4CAF50;
+            background: #f9f9f9;
+        }
+        .step h3 {
+            margin-top: 0;
+            color: #2E7D32;
+        }
+        .code-block {
+            background: #263238;
+            color: #EEFFFF;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .highlight {
+            background: #FFEB3B;
+            padding: 2px 4px;
+            border-radius: 3px;
+            color: #333;
+        }
+        .warning {
+            background: #FFF3CD;
+            border: 1px solid #FFEAA7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .success {
+            background: #D4EDDA;
+            border: 1px solid #C3E6CB;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .input-group {
+            margin: 15px 0;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .copy-btn {
+            background: #2196F3;
+            font-size: 12px;
+            padding: 5px 10px;
+        }
+        .link {
+            color: #1976D2;
+            text-decoration: none;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Google Sheets 報名系統設定助手</h1>
+        <p>這個助手將引導你完成整個設定過程，讓報名表單能夠自動將資料寫入 Google Sheets。</p>
+
+        <div class="step">
+            <h3>步驟 1: 創建 Google Sheets</h3>
+            <p>1. 點擊 <a href="https://sheets.google.com" target="_blank" class="link">Google Sheets</a> 創建新試算表</p>
+            <p>2. 將試算表命名為「內湖高中資訊成發報名資料」</p>
+            <p>3. 從網址列複製試算表 ID（在 /d/ 和 /edit 之間的部分）</p>
+            
+            <div class="input-group">
+                <label for="sheetId">貼上你的 Google Sheets ID:</label>
+                <input type="text" id="sheetId" placeholder="例如: 1jV6HgJJb1UgMy2fBVxEpQSUX5x_YtPFs6wMAfpQBhdE">
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>步驟 2: 設定 Google Apps Script</h3>
+            <p>1. 點擊 <a href="https://script.google.com" target="_blank" class="link">Google Apps Script</a> 創建新專案</p>
+            <p>2. 將專案命名為「內湖高中報名系統」</p>
+            <p>3. 複製以下程式碼並貼到 Google Apps Script 中：</p>
+            
+            <div class="code-block" id="gasCode">
+// 載入中...
+            </div>
+            <button class="copy-btn" onclick="copyToClipboard('gasCode')">📋 複製程式碼</button>
+            
+            <div class="warning">
+                <strong>重要：</strong>記得將程式碼中的 SPREADSHEET_ID 改為你的試算表 ID！
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>步驟 3: 部署 Google Apps Script</h3>
+            <p>1. 在 Google Apps Script 中點擊「部署」→「新增部署作業」</p>
+            <p>2. 選擇類型：「網路應用程式」</p>
+            <p>3. 設定執行身分為「我」，存取權為「任何人」</p>
+            <p>4. 點擊「部署」並複製網路應用程式網址</p>
+            
+            <div class="input-group">
+                <label for="scriptUrl">貼上你的 Google Apps Script 網址:</label>
+                <input type="text" id="scriptUrl" placeholder="https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec">
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>步驟 4: 更新前端設定</h3>
+            <p>將以下設定複製到你的 <code>config.js</code> 檔案中：</p>
+            
+            <div class="code-block" id="configCode">
+// 載入中...
+            </div>
+            <button class="copy-btn" onclick="copyToClipboard('configCode')">📋 複製設定</button>
+            
+            <button onclick="generateConfig()">🔧 生成設定檔</button>
+        </div>
+
+        <div class="step">
+            <h3>步驟 5: 測試系統</h3>
+            <p>1. 在 Google Apps Script 中執行 <code>testFunction()</code> 函數</p>
+            <p>2. 授權必要的權限（Sheets 和 Gmail）</p>
+            <p>3. 開啟 <a href="test-form.html" target="_blank" class="link">test-form.html</a> 進行測試</p>
+            <p>4. 檢查 Google Sheets 是否有測試資料</p>
+            <p>5. 檢查是否收到測試郵件</p>
+        </div>
+
+        <div id="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        // 載入 Google Apps Script 程式碼
+        fetch('google-apps-script.js')
+            .then(response => response.text())
+            .then(code => {
+                document.getElementById('gasCode').textContent = code;
+            })
+            .catch(error => {
+                document.getElementById('gasCode').textContent = '無法載入 google-apps-script.js 檔案';
+            });
+
+        function generateConfig() {
+            const sheetId = document.getElementById('sheetId').value.trim();
+            const scriptUrl = document.getElementById('scriptUrl').value.trim();
+            
+            if (!sheetId || !scriptUrl) {
+                alert('請先填入 Google Sheets ID 和 Google Apps Script 網址');
+                return;
+            }
+            
+            const config = `const CONFIG = {
+    // Google Apps Script 部署網址
+    GOOGLE_SCRIPT_URL: '${scriptUrl}',
+    
+    // Google Sheets ID
+    SPREADSHEET_ID: '${sheetId}',
+    
+    // 工作表名稱
+    SHEET_NAME: '報名資料',
+    
+    // 聯絡資訊
+    CONTACT: {
+        EMAIL: '1stnhai@gmail.com',
+        INSTAGRAM: '@nhai1st_208'
+    },
+    
+    // 活動資訊
+    EVENT: {
+        NAME: '內湖高中第14屆資訊成發 - Algorithms',
+        DATE: '2026年4月22日 (星期三)',
+        TIME: '13:00 - 17:00',
+        LOCATION: '臺北市內湖高級中學 國際會議廳'
+    }
+};
+
+// 匯出設定供其他檔案使用
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = CONFIG;
+}`;
+            
+            document.getElementById('configCode').textContent = config;
+            
+            const result = document.getElementById('result');
+            result.innerHTML = `
+                <div class="success">
+                    <h3>✅ 設定檔已生成！</h3>
+                    <p>請將上方的設定複製到 <code>config.js</code> 檔案中。</p>
+                    <p>然後開啟 <a href="test-form.html" target="_blank" class="link">test-form.html</a> 進行測試。</p>
+                </div>
+            `;
+            result.style.display = 'block';
+        }
+        
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            
+            navigator.clipboard.writeText(text).then(function() {
+                alert('已複製到剪貼簿！');
+            }, function(err) {
+                console.error('複製失敗: ', err);
+                // 備用方法
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('已複製到剪貼簿！');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -22,11 +22,16 @@ const CONFIG = {
  */
 function doPost(e) {
   try {
+    console.log('收到 POST 請求');
+    console.log('請求內容:', e.postData.contents);
+    
     // 解析 JSON 資料
     const data = JSON.parse(e.postData.contents);
+    console.log('解析後的資料:', data);
     
     // 驗證必填欄位
     if (!data.name || !data.email) {
+      console.error('缺少必填欄位');
       return ContentService
         .createTextOutput(JSON.stringify({
           success: false,
@@ -36,17 +41,22 @@ function doPost(e) {
     }
     
     // 寫入 Google Sheets
+    console.log('開始寫入 Google Sheets');
     const result = writeToSheet(data);
+    console.log('寫入結果:', result);
     
     if (result.success) {
       // 發送通知郵件
+      console.log('發送通知郵件');
       sendNotificationEmail(data);
       
       // 發送確認郵件給報名者
       if (CONFIG.SEND_CONFIRMATION) {
+        console.log('發送確認郵件');
         sendConfirmationEmail(data);
       }
       
+      console.log('處理完成，回傳成功訊息');
       return ContentService
         .createTextOutput(JSON.stringify({
           success: true,
@@ -60,11 +70,12 @@ function doPost(e) {
     
   } catch (error) {
     console.error('處理報名資料時發生錯誤:', error);
+    console.error('錯誤堆疊:', error.stack);
     
     return ContentService
       .createTextOutput(JSON.stringify({
         success: false,
-        message: '系統錯誤，請稍後再試'
+        message: '系統錯誤，請稍後再試: ' + error.message
       }))
       .setMimeType(ContentService.MimeType.JSON);
   }

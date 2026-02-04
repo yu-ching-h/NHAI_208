@@ -1149,24 +1149,48 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 try {
-                    // 純前端報名方案 - 顯示資料並提供聯絡方式
-                    console.log('使用純前端報名方案');
+                    // 使用設定檔中的 Google Apps Script 網址
+                    const GOOGLE_SCRIPT_URL = CONFIG.GOOGLE_SCRIPT_URL;
                     
-                    // 顯示詳細的報名確認
-                    const confirmMessage = `✅ 報名資料已記錄！
+                    // 檢查是否已設定正確的網址
+                    if (GOOGLE_SCRIPT_URL.includes('YOUR_SCRIPT_ID_HERE')) {
+                        throw new Error('請先設定 Google Apps Script 網址');
+                    }
+                    
+                    console.log('發送資料到 Google Apps Script:', GOOGLE_SCRIPT_URL);
+                    console.log('發送的資料:', data);
+                    
+                    // 發送到 Google Apps Script
+                    const response = await fetch(GOOGLE_SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors', // 重要：Google Apps Script 需要 no-cors 模式
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    
+                    console.log('Google Apps Script 回應:', response);
+                    
+                    // 由於 no-cors 模式，我們無法讀取回應內容
+                    // 但如果沒有拋出錯誤，就表示請求已發送
+                    
+                    // 顯示成功訊息
+                    const confirmMessage = `✅ 報名成功！
 
-📋 您的報名資訊：
+📋 您的報名資訊已成功提交：
 👤 姓名：${data.name}
 📧 信箱：${data.email}
 🏫 身份：${data.title || '未填寫'}
 🎯 感興趣的專題：${data.interest || '未填寫'}
 💭 期待：${data.expectations || '未填寫'}
 
-📞 我們會透過以下方式與您確認：
-📧 Email: 1stnhai@gmail.com
-📱 Instagram: @nhai1st_208
+📧 確認信將發送到您的信箱
+📞 如有問題請聯絡：
+📧 Email: ${CONFIG.CONTACT.EMAIL}
+📱 Instagram: ${CONFIG.CONTACT.INSTAGRAM}
 
-🎉 感謝您報名參加內湖高中第14屆資訊成發！
+🎉 感謝您報名參加${CONFIG.EVENT.NAME}！
 我們期待在活動中與您見面！`;
 
                     alert(confirmMessage);
@@ -1252,3 +1276,298 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 500); // 延遲 500ms 確保所有元素都已載入
 });
+// 投票系統
+class VotingSystem {
+    constructor() {
+        this.votingEnabled = false;
+        this.votingStartDate = new Date(); // 立即開放投票進行測試
+        this.userVotes = JSON.parse(localStorage.getItem('userVotes') || '{}');
+        this.voteCounts = JSON.parse(localStorage.getItem('voteCounts') || '{}');
+        
+        this.init();
+    }
+    
+    init() {
+        this.checkVotingStatus();
+        this.setupVoteButtons();
+        this.updateVoteCounts();
+        this.startCountdown();
+        
+        // 每分鐘檢查一次投票狀態
+        setInterval(() => {
+            this.checkVotingStatus();
+        }, 60000);
+    }
+    
+    checkVotingStatus() {
+        const now = new Date();
+        const wasEnabled = this.votingEnabled;
+        this.votingEnabled = now >= this.votingStartDate;
+        
+        if (!wasEnabled && this.votingEnabled) {
+            this.enableVoting();
+        }
+        
+        this.updateVoteButtons();
+    }
+    
+    enableVoting() {
+        console.log('投票系統已開放！');
+        
+        // 顯示通知
+        const notification = document.createElement('div');
+        notification.innerHTML = `
+            <div style="
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(135deg, #4CAF50, #45a049);
+                color: white;
+                padding: 2rem;
+                border-radius: 15px;
+                text-align: center;
+                z-index: 10000;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                animation: scaleIn 0.5s ease;
+            ">
+                <h3>🗳️ 投票開始了！</h3>
+                <p>人氣獎投票現在開放，快來為你喜歡的專題投票吧！</p>
+                <button onclick="this.parentElement.parentElement.remove()" 
+                        style="margin-top: 1rem; padding: 0.5rem 1rem; background: white; color: #4CAF50; border: none; border-radius: 5px; cursor: pointer;">
+                    知道了
+                </button>
+            </div>
+        `;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 5000);
+    }
+    
+    setupVoteButtons() {
+        const voteButtons = document.querySelectorAll('.btn-vote');
+        
+        voteButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const projectId = button.getAttribute('data-project');
+                this.handleVote(projectId, button);
+            });
+        });
+    }
+    
+    handleVote(projectId, button) {
+        if (!this.votingEnabled) {
+            alert('投票尚未開放，請等待成發開始！');
+            return;
+        }
+        
+        if (this.userVotes[projectId]) {
+            alert('您已經為這個專題投過票了！');
+            return;
+        }
+        
+        // 檢查用戶是否已經投票給其他專題
+        const hasVoted = Object.values(this.userVotes).some(voted => voted);
+        if (hasVoted) {
+            alert('您只能投票給一個專題！');
+            return;
+        }
+        
+        // 執行投票
+        this.userVotes[projectId] = true;
+        this.voteCounts[projectId] = (this.voteCounts[projectId] || 0) + 1;
+        
+        // 保存到 localStorage
+        localStorage.setItem('userVotes', JSON.stringify(this.userVotes));
+        localStorage.setItem('voteCounts', JSON.stringify(this.voteCounts));
+        
+        // 更新顯示
+        this.updateVoteCounts();
+        button.classList.add('voted', 'vote-success');
+        
+        // 顯示投票成功訊息
+        this.showVoteSuccess(projectId);
+    }
+    
+    showVoteSuccess(projectId) {
+        const message = document.createElement('div');
+        message.innerHTML = `
+            <div style="
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #4CAF50, #45a049);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                z-index: 10000;
+                box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+                animation: slideInRight 0.5s ease;
+            ">
+                ✅ 投票成功！感謝您的支持！
+            </div>
+        `;
+        
+        document.body.appendChild(message);
+        
+        setTimeout(() => {
+            message.remove();
+        }, 3000);
+    }
+    
+    updateVoteCounts() {
+        const voteElements = document.querySelectorAll('.popularity-vote');
+        
+        voteElements.forEach(element => {
+            const projectId = element.getAttribute('data-project');
+            const countElement = element.querySelector('.vote-count');
+            const count = this.voteCounts[projectId] || 0;
+            
+            if (countElement) {
+                countElement.textContent = count;
+            }
+        });
+    }
+    
+    updateVoteButtons() {
+        const voteButtons = document.querySelectorAll('.btn-vote');
+        
+        voteButtons.forEach(button => {
+            const projectId = button.getAttribute('data-project');
+            
+            if (this.votingEnabled) {
+                button.disabled = false;
+                button.querySelector('.vote-text').textContent = '投票給我們';
+            } else {
+                button.disabled = true;
+                button.querySelector('.vote-text').textContent = '投票給我們';
+            }
+            
+            if (this.userVotes[projectId]) {
+                button.classList.add('voted');
+                button.querySelector('.vote-text').textContent = '已投票';
+            }
+        });
+    }
+    
+    startCountdown() {
+        if (this.votingEnabled) return;
+        
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const distance = this.votingStartDate.getTime() - now;
+            
+            if (distance < 0) {
+                this.checkVotingStatus();
+                return;
+            }
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            // 更新投票倒數計時（如果有的話）
+            const countdownElements = document.querySelectorAll('.countdown-timer-vote');
+            countdownElements.forEach(countdown => {
+                const daysEl = countdown.querySelector('.days');
+                const hoursEl = countdown.querySelector('.hours');
+                const minutesEl = countdown.querySelector('.minutes');
+                const secondsEl = countdown.querySelector('.seconds');
+                
+                if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+                if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+                if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+                if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
+            });
+        };
+        
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    }
+    
+    // 管理員功能：重置投票
+    resetVotes() {
+        if (confirm('確定要重置所有投票嗎？此操作無法復原！')) {
+            localStorage.removeItem('userVotes');
+            localStorage.removeItem('voteCounts');
+            this.userVotes = {};
+            this.voteCounts = {};
+            this.updateVoteCounts();
+            this.updateVoteButtons();
+            alert('投票已重置！');
+        }
+    }
+    
+    // 獲取投票排行榜
+    getVoteRanking() {
+        const projects = [
+            { id: 'face-recognition', name: '第一組 - 臉部辨識鎖' },
+            { id: 'sky-catcher', name: '第二組 - 天際捕手' },
+            { id: 'broken-spirit', name: '第三組 - 折斷的骨氣' },
+            { id: 'ai-network', name: '第四組 - AI 網路封包系統' },
+            { id: 'sky-eye', name: '第五組 - 天空之眼' },
+            { id: 'mega-bus', name: '第六組 - Mega公車' },
+            { id: 'toilet-world', name: '第七組 - 毛廁異世界' },
+            { id: 'kebi-robot', name: '第八組 - 凱比機器人' },
+            { id: 'smart-space', name: '第九組 - 方寸間的智慧' }
+        ];
+        
+        return projects
+            .map(project => ({
+                ...project,
+                votes: this.voteCounts[project.id] || 0
+            }))
+            .sort((a, b) => b.votes - a.votes);
+    }
+}
+
+// 初始化投票系統
+document.addEventListener('DOMContentLoaded', function() {
+    // 延遲初始化確保所有元素都已載入
+    setTimeout(() => {
+        window.votingSystem = new VotingSystem();
+    }, 1000);
+});
+
+// 管理員快捷鍵：Ctrl+Shift+R 重置投票
+document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.shiftKey && e.key === 'R') {
+        e.preventDefault();
+        if (window.votingSystem) {
+            window.votingSystem.resetVotes();
+        }
+    }
+});
+
+// 添加 CSS 動畫
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes scaleIn {
+        from {
+            transform: translate(-50%, -50%) scale(0.8);
+            opacity: 0;
+        }
+        to {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+    }
+`;
+document.head.appendChild(style);
