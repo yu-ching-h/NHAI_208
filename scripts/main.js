@@ -1276,11 +1276,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 500); // 延遲 500ms 確保所有元素都已載入
 });
-// 投票系統
+// 人氣獎投票系統
 class VotingSystem {
     constructor() {
         this.votingEnabled = false;
-        this.votingStartDate = new Date(); // 立即開放投票進行測試
+        this.votingStartDate = new Date('2026-04-22T13:00:00'); // 成發當天下午2點開始投票
         this.userVotes = JSON.parse(localStorage.getItem('userVotes') || '{}');
         this.voteCounts = JSON.parse(localStorage.getItem('voteCounts') || '{}');
         
