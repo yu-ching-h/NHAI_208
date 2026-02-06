@@ -1,19 +1,24 @@
 /**
  * 內湖高中資訊成發報名系統 - Google Apps Script
  * 
+ * ⚠️ 這是範本檔案，請勿直接使用
+ * 
  * 設置步驟：
  * 1. 前往 script.google.com
  * 2. 創建新專案
- * 3. 貼上此代碼
- * 4. 部署為網路應用程式
- * 5. 複製網址到前端 JavaScript
+ * 3. 複製此代碼到 Google Apps Script 編輯器
+ * 4. 修改下方的 CONFIG 設定（填入你的實際值）
+ * 5. 部署為網路應用程式
+ * 6. 複製部署網址到 scripts/config.js
+ * 
+ * 注意：此檔案應該只存在於 Google Apps Script 平台，不要提交到 Git
  */
 
-// 設定區域 - 請修改以下設定
+// 設定區域 - ⚠️ 請修改以下設定為你的實際值
 const CONFIG = {
-  SPREADSHEET_ID: '1jV6HgJJb1UgMy2fBVxEpQSUX5x_YtPFs6wMAfpQBhdE', // 替換為你的 Google Sheets ID
+  SPREADSHEET_ID: 'YOUR_SPREADSHEET_ID_HERE', // ⚠️ 替換為你的 Google Sheets ID
   SHEET_NAME: '報名資料', // 工作表名稱
-  NOTIFICATION_EMAIL: '1stnhai@gmail.com', // 通知信箱
+  NOTIFICATION_EMAIL: 'your-email@example.com', // ⚠️ 替換為你的通知信箱
   SEND_CONFIRMATION: true, // 是否發送確認信給報名者
 };
 
@@ -252,7 +257,7 @@ function sendConfirmationEmail(data) {
           <div style="background: #E2E8F0; padding: 20px; border-radius: 10px; margin: 20px 0;">
             <h3 style="color: #8C6E54; margin-top: 0;">📱 聯絡我們</h3>
             <p style="margin: 5px 0; color: #593825;">如有任何問題，歡迎聯絡我們：</p>
-            <p style="margin: 5px 0; color: #593825;">📧 Email: 1stnhai@gmail.com</p>
+            <p style="margin: 5px 0; color: #593825;">📧 Email: ${CONFIG.NOTIFICATION_EMAIL}</p>
             <p style="margin: 5px 0; color: #593825;">📱 Instagram: nhai1st_208</p>
           </div>
           
