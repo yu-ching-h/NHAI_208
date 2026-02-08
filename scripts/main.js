@@ -157,23 +157,19 @@ function initAnimations() {
         return;
     }
     
-    // Only run navbar scroll animation
-    let lastScrollTop = 0;
+    // 導航欄滾動效果 - 固定在頂部，滾動時降低透明度
     const navbar = document.querySelector('.navbar');
     
     if (navbar) {
         window.addEventListener('scroll', function() {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             
-            if (scrollTop > lastScrollTop && scrollTop > 100) {
-                // Scrolling down
-                navbar.style.transform = 'translateY(-100px)';
+            // 滾動超過 50px 時添加 scrolled 類別
+            if (scrollTop > 50) {
+                navbar.classList.add('scrolled');
             } else {
-                // Scrolling up
-                navbar.style.transform = 'translateY(0)';
+                navbar.classList.remove('scrolled');
             }
-            
-            lastScrollTop = scrollTop;
         });
     }
 }
