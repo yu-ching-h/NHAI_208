@@ -10,7 +10,7 @@
 
 // 生產環境設定（部署到 GitHub Pages 時使用）
 const PRODUCTION_CONFIG = {
-    GOOGLE_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbx8iLPRuZGJGsuYgz2G6kj6NSS2ylpfMaWcS_zqcOoUUTIXQixYjBRDQd34AnsC5NSQ/exec',
+    GOOGLE_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbwiGbz7_BhISwhQORQgAJxsOpuVoA50LTDj4auIVWfB5pxcwwF0gEOZF2HtcyPpC9In/exec',
     SPREADSHEET_ID: '1CIFg1CDjl55By3sLNqETeZnd6Rf9TynGESD_AU4Ps0c',
     SHEET_NAME: '報名資料',
     
