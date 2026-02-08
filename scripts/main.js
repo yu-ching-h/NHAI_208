@@ -179,6 +179,8 @@ function initAnimations() {
 }
 
 // Utility Functions
+// Sparkle effect disabled - 已停用閃爍效果
+/*
 function addSparkleEffect(element) {
     const sparkle = document.createElement('div');
     sparkle.innerHTML = '✨';
@@ -219,6 +221,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+*/
 
 // Easter Egg: Konami Code
 let konamiCode = [];
