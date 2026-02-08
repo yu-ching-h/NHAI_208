@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>報名系統除錯工具</title>
+    <style>
+        body {
+            font-family: 'Noto Sans TC', Arial, sans-serif;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .code-block {
+            background: #263238;
+            color: #EEFFFF;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .log {
+            background: #f8f9fa;
+            padding: 10px;
+            border-left: 4px solid #007bff;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 報名系統除錯工具</h1>
+        <p>這個工具可以幫助你診斷報名系統的問題</p>
+
+        <!-- 測試 1：檢查設定 -->
+        <div class="test-section">
+            <h2>測試 1：檢查設定檔</h2>
+            <button onclick="testConfig()">🔍 檢查設定</button>
+            <div id="configResult"></div>
+        </div>
+
+        <!-- 測試 2：測試 Google Apps Script 連線 -->
+        <div class="test-section">
+            <h2>測試 2：測試 Google Apps Script 連線</h2>
+            <button onclick="testConnection()">🌐 測試連線</button>
+            <div id="connectionResult"></div>
+        </div>
+
+        <!-- 測試 3：測試完整報名流程 -->
+        <div class="test-section">
+            <h2>測試 3：測試完整報名流程</h2>
+            <button onclick="testFullRegistration()">📝 測試報名</button>
+            <div id="registrationResult"></div>
+        </div>
+
+        <!-- 日誌 -->
+        <div class="test-section">
+            <h2>📋 除錯日誌</h2>
+            <button onclick="clearLog()">🗑️ 清除日誌</button>
+            <div id="debugLog" class="log"></div>
+        </div>
+    </div>
+
+    <script src="scripts/config.js"></script>
+    <script>
+        let logMessages = [];
+
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString('zh-TW');
+            const logEntry = `[${timestamp}] ${type.toUpperCase()}: ${message}`;
+            logMessages.push(logEntry);
+            updateLog();
+            console.log(logEntry);
+        }
+
+        function updateLog() {
+            const logDiv = document.getElementById('debugLog');
+            logDiv.innerHTML = logMessages.join('\n');
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function clearLog() {
+            logMessages = [];
+            updateLog();
+        }
+
+        // 測試 1：檢查設定
+        async function testConfig() {
+            const resultDiv = document.getElementById('configResult');
+            resultDiv.innerHTML = '<p>⏳ 檢查中...</p>';
+            log('開始檢查設定檔');
+
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+            let html = '';
+            let allValid = true;
+
+            if (typeof CONFIG === 'undefined') {
+                html += '<div class="status error">❌ 錯誤：找不到 CONFIG 物件</div>';
+                log('錯誤：找不到 CONFIG 物件', 'error');
+                resultDiv.innerHTML = html;
+                return;
+            }
+
+            log('CONFIG 物件已載入');
+
+            // 檢查 GOOGLE_SCRIPT_URL
+            const scriptUrlValid = CONFIG.GOOGLE_SCRIPT_URL && 
+                                   CONFIG.GOOGLE_SCRIPT_URL.startsWith('https://script.google.com/');
+            
+            html += `<div class="status ${scriptUrlValid ? 'success' : 'error'}">
+                ${scriptUrlValid ? '✅' : '❌'} GOOGLE_SCRIPT_URL: 
+                <div class="code-block">${CONFIG.GOOGLE_SCRIPT_URL || '(未設定)'}</div>
+            </div>`;
+            
+            log(`GOOGLE_SCRIPT_URL: ${scriptUrlValid ? '有效' : '無效'}`, scriptUrlValid ? 'info' : 'error');
+            if (!scriptUrlValid) allValid = false;
+
+            // 檢查 SPREADSHEET_ID
+            const sheetIdValid = CONFIG.SPREADSHEET_ID && CONFIG.SPREADSHEET_ID.length > 20;
+            
+            html += `<div class="status ${sheetIdValid ? 'success' : 'error'}">
+                ${sheetIdValid ? '✅' : '❌'} SPREADSHEET_ID: 
+                <div class="code-block">${CONFIG.SPREADSHEET_ID || '(未設定)'}</div>
+            </div>`;
+            
+            log(`SPREADSHEET_ID: ${sheetIdValid ? '有效' : '無效'}`, sheetIdValid ? 'info' : 'error');
+            if (!sheetIdValid) allValid = false;
+
+            if (allValid) {
+                html += '<div class="status success">🎉 所有設定都正確！</div>';
+                log('所有設定檢查通過', 'info');
+            } else {
+                html += '<div class="status error">⚠️ 請修正上述設定問題</div>';
+                log('設定檢查失敗', 'error');
+            }
+
+            resultDiv.innerHTML = html;
+        }
+
+        // 測試 2：測試連線
+        async function testConnection() {
+            const resultDiv = document.getElementById('connectionResult');
+            resultDiv.innerHTML = '<p>⏳ 測試連線中...</p>';
+            log('開始測試 Google Apps Script 連線');
+
+            try {
+                const url = CONFIG.GOOGLE_SCRIPT_URL;
+                log(`嘗試連線到: ${url}`);
+
+                const response = await fetch(url, {
+                    method: 'GET',
+                    mode: 'no-cors'
+                });
+
+                log('連線請求已發送（no-cors 模式）');
+
+                resultDiv.innerHTML = `
+                    <div class="status info">
+                        <strong>ℹ️ 連線測試說明</strong>
+                        <p>由於使用 no-cors 模式，無法讀取回應內容。</p>
+                        <p>如果沒有出現錯誤，表示連線可能成功。</p>
+                        <p><strong>請檢查瀏覽器 Console 是否有 CORS 錯誤。</strong></p>
+                    </div>
+                    <div class="status success">
+                        ✅ 請求已發送，未出現錯誤
+                    </div>
+                `;
+                log('連線測試完成，未出現錯誤', 'info');
+
+            } catch (error) {
+                log(`連線錯誤: ${error.message}`, 'error');
+                resultDiv.innerHTML = `
+                    <div class="status error">
+                        <strong>❌ 連線失敗</strong>
+                        <p>錯誤訊息：${error.message}</p>
+                        <p>可能原因：</p>
+                        <ul>
+                            <li>Google Apps Script URL 不正確</li>
+                            <li>Google Apps Script 未部署或已停用</li>
+                            <li>網路連線問題</li>
+                        </ul>
+                    </div>
+                `;
+            }
+        }
+
+        // 測試 3：測試完整報名
+        async function testFullRegistration() {
+            const resultDiv = document.getElementById('registrationResult');
+            resultDiv.innerHTML = '<p>⏳ 測試報名中...</p>';
+            log('開始測試完整報名流程');
+
+            const testData = {
+                name: '測試用戶',
+                email: 'test@example.com',
+                title: '測試身份',
+                interest: '測試專題',
+                expectations: '這是一個系統測試',
+                timestamp: new Date().toLocaleString('zh-TW', {
+                    timeZone: 'Asia/Taipei'
+                })
+            };
+
+            log(`測試資料: ${JSON.stringify(testData)}`);
+
+            try {
+                const url = CONFIG.GOOGLE_SCRIPT_URL;
+                log(`發送 POST 請求到: ${url}`);
+
+                const response = await fetch(url, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(testData)
+                });
+
+                log('POST 請求已發送（no-cors 模式）');
+
+                resultDiv.innerHTML = `
+                    <div class="status info">
+                        <strong>ℹ️ 報名測試說明</strong>
+                        <p>由於使用 no-cors 模式，無法讀取回應內容。</p>
+                        <p><strong>請檢查以下項目：</strong></p>
+                        <ol>
+                            <li>開啟 Google Sheets，查看是否有新的測試資料</li>
+                            <li>檢查 test@example.com 是否收到確認郵件</li>
+                            <li>檢查管理員信箱是否收到通知</li>
+                            <li>查看瀏覽器 Console 是否有錯誤訊息</li>
+                        </ol>
+                    </div>
+                    <div class="status success">
+                        ✅ 請求已發送，未出現錯誤
+                    </div>
+                    <div class="status info">
+                        <strong>📊 測試資料：</strong>
+                        <div class="code-block">${JSON.stringify(testData, null, 2)}</div>
+                    </div>
+                `;
+                log('報名測試完成，請檢查 Google Sheets', 'info');
+
+            } catch (error) {
+                log(`報名測試失敗: ${error.message}`, 'error');
+                resultDiv.innerHTML = `
+                    <div class="status error">
+                        <strong>❌ 報名測試失敗</strong>
+                        <p>錯誤訊息：${error.message}</p>
+                        <p>可能原因：</p>
+                        <ul>
+                            <li>Google Apps Script 設定錯誤</li>
+                            <li>權限問題</li>
+                            <li>網路連線問題</li>
+                        </ul>
+                    </div>
+                `;
+            }
+        }
+
+        // 頁面載入時自動檢查設定
+        window.addEventListener('load', () => {
+            log('除錯工具已載入');
+            setTimeout(testConfig, 500);
+        });
+    </script>
+</body>
+</html>
