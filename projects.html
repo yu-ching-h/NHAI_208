@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,98 +8,124 @@
     <link rel="stylesheet" href="styles/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
+
 <body data-theme="light">
     <script>
         // 開發中控制開關 - 改為 false 就恢復正常頁面
-        const UNDER_CONSTRUCTION = false;
-        
+        const UNDER_CONSTRUCTION = true;
+
         if (UNDER_CONSTRUCTION) {
-            document.body.innerHTML = `
-                <style>
-                    .under-construction {
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100vh;
-                        background: var(--bg-primary, #F2E8DC);
-                        z-index: 9999;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        font-family: 'Noto Sans TC', sans-serif;
+            // 隱藏頁面滾動，防止往下滑看到內容
+            document.documentElement.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
+            document.body.style.height = '100vh';
+
+            // 隱藏所有原本的頁面內容
+            document.addEventListener('DOMContentLoaded', function () {
+                const allChildren = document.body.children;
+                for (let i = 0; i < allChildren.length; i++) {
+                    if (!allChildren[i].classList.contains('under-construction')) {
+                        allChildren[i].style.display = 'none';
                     }
-                    
-                    .construction-content {
-                        text-align: center;
-                        padding: 2rem;
-                        color: var(--text-primary, #262014);
-                    }
-                    
-                    .construction-mascot {
-                        width: 150px;
-                        height: 150px;
-                        margin-bottom: 2rem;
-                        animation: bounce 2s infinite;
-                        object-fit: contain;
-                        border-radius: 50%;
-                    }
-                    
-                    .construction-content h1 {
-                        font-size: 2.5rem;
-                        margin-bottom: 1rem;
-                        color: var(--accent-color, #8C6E54);
-                    }
-                    
-                    .construction-content p {
-                        font-size: 1.2rem;
-                        margin-bottom: 0.5rem;
-                        color: var(--text-secondary, #593825);
-                    }
-                    
-                    @keyframes bounce {
-                        0%, 20%, 50%, 80%, 100% {
-                            transform: translateY(0);
-                        }
-                        40% {
-                            transform: translateY(-20px);
-                        }
-                        60% {
-                            transform: translateY(-10px);
-                        }
-                    }
-                    
-                    .back-link {
-                        margin-top: 2rem;
-                        display: inline-block;
-                        padding: 1rem 2rem;
-                        background: var(--accent-color, #8C6E54);
-                        color: white;
-                        text-decoration: none;
-                        border-radius: 25px;
-                        font-weight: 600;
-                        transition: transform 0.3s ease;
-                    }
-                    
-                    .back-link:hover {
-                        transform: translateY(-2px);
-                    }
-                </style>
-                <div class="under-construction">
-                    <div class="construction-content">
-                        <img src="material/小肥啾.PNG" alt="小肥啾" class="construction-mascot">
-                        <h1>🚧 頁面開發中 🚧</h1>
-                        <p>小肥啾正在努力建設這個頁面...</p>
-                        <p>敬請期待精彩的專題作品展示！</p>
-                        <a href="index.html" class="back-link">← 回到首頁</a>
-                    </div>
+                }
+            });
+
+            // 注入覆蓋層（不替換 innerHTML，避免破壞頁面結構）
+            const overlay = document.createElement('div');
+            overlay.className = 'under-construction';
+            overlay.innerHTML = `
+                <div class="construction-content">
+                    <img src="material/小肥啾.PNG" alt="小肥啾" class="construction-mascot">
+                    <h1>🚧 頁面開發中 🚧</h1>
+                    <p>小肥啾正在努力建設這個頁面...</p>
+                    <p>敬請期待精彩的專題作品展示！</p>
+                    <a href="index.html" class="back-link">← 回到首頁</a>
                 </div>
             `;
+            document.body.insertBefore(overlay, document.body.firstChild);
         }
     </script>
+    <style>
+        .under-construction {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--bg-primary, #F2E8DC);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        .construction-content {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-primary, #262014);
+        }
+
+        .construction-mascot {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 2rem;
+            animation: constructionBounce 2s infinite;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        .construction-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color, #8C6E54);
+        }
+
+        .construction-content p {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary, #593825);
+        }
+
+        @keyframes constructionBounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-20px);
+            }
+
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .back-link {
+            margin-top: 2rem;
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--accent-color, #8C6E54);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .back-link:hover {
+            transform: translateY(-2px);
+        }
+    </style>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -162,7 +189,7 @@
 
 
             <div class="projects-grid">
-<!--=====================================================================================================================-->
+                <!--=====================================================================================================================-->
                 <div class="project-card">
                     <div class="project-image">
                         <img src="blue-gradient.png" alt="臉部辨識鎖">
@@ -202,7 +229,7 @@
                         </div>
                     </div>
                 </div>
-<!--=====================================================================================================================-->
+                <!--=====================================================================================================================-->
                 <div class="project-card">
                     <div class="project-image">
                         <img src="blue-gradient.png" alt="天際捕手">
@@ -218,7 +245,8 @@
                     </div>
                     <div class="project-content">
                         <h3>🎯 天際捕手</h3>
-                        <p>「天際捕手」是一套結合超音波距離感測的高空掉落物即時偵測與攔截系統，針對都市環境中大樓掉落物可能危及生命的安全問題設計。本作品利用超音波感測物體距離，當判斷存在危險時，即時啟動警示和攔截裝置。此設計強調主動式防護，期望透過科技降低事故風險，構建智慧城市的安全防護網。</p>
+                        <p>「天際捕手」是一套結合超音波距離感測的高空掉落物即時偵測與攔截系統，針對都市環境中大樓掉落物可能危及生命的安全問題設計。本作品利用超音波感測物體距離，當判斷存在危險時，即時啟動警示和攔截裝置。此設計強調主動式防護，期望透過科技降低事故風險，構建智慧城市的安全防護網。
+                        </p>
                         <div class="tech-tags">
                             <span class="tag">tag待放</span>
                         </div>
@@ -242,7 +270,7 @@
                         </div>
                     </div>
                 </div>
-<!--=====================================================================================================================-->
+                <!--=====================================================================================================================-->
                 <div class="project-card">
                     <div class="project-image">
                         <img src="blue-gradient.png" alt="折斷的骨氣">
@@ -258,7 +286,8 @@
                     </div>
                     <div class="project-content">
                         <h3>🧠 折斷的骨氣</h3>
-                        <p>本是合作的兩人（Zero和Flux）為了爭奪「神經核心」的控制權，所以他們互相對決，想要首先集齊兩片核心碎片。（總共有三個碎片，只要集齊兩個就可以獲得控制權）（Zero認為所有程式都應該完美無缺，Flux認為只有混亂才能創造無限可能）沒獲得控制權的一方，會被系統自動「格式化」。</p>
+                        <p>本是合作的兩人（Zero和Flux）為了爭奪「神經核心」的控制權，所以他們互相對決，想要首先集齊兩片核心碎片。（總共有三個碎片，只要集齊兩個就可以獲得控制權）（Zero認為所有程式都應該完美無缺，Flux認為只有混亂才能創造無限可能）沒獲得控制權的一方，會被系統自動「格式化」。
+                        </p>
                         <div class="tech-tags">
                             <span class="tag">tag待放</span>
                         </div>
@@ -282,7 +311,7 @@
                         </div>
                     </div>
                 </div>
-<!--=====================================================================================================================-->                
+                <!--=====================================================================================================================-->
                 <div class="project-card">
                     <div class="project-image">
                         <img src="blue-gradient.png" alt="AI 網路封包系統">
@@ -298,7 +327,9 @@
                     </div>
                     <div class="project-content">
                         <h3>🔒 AI 網路封包系統</h3>
-                        <p>我們的專題開發一套基於 LSTM 深度學習架構的即時網路入侵偵測系統（NIDS）。系統透過高效能封包擷取技術，監控網卡原始流量並轉化為流特徵（Flow-based），利用 CSE-CIC-IDS2018 權威數據集訓練，使模型具備優異的時序分析能力。本系統不僅能精準識別 DoS、Botnet 及 SQL 注入等複雜攻擊，更專注於捕捉異常行為的動態規律，實現自動化且智能化的網路安全威脅預警與即時防禦。</p>
+                        <p>我們的專題開發一套基於 LSTM 深度學習架構的即時網路入侵偵測系統（NIDS）。系統透過高效能封包擷取技術，監控網卡原始流量並轉化為流特徵（Flow-based），利用
+                            CSE-CIC-IDS2018 權威數據集訓練，使模型具備優異的時序分析能力。本系統不僅能精準識別 DoS、Botnet 及 SQL
+                            注入等複雜攻擊，更專注於捕捉異常行為的動態規律，實現自動化且智能化的網路安全威脅預警與即時防禦。</p>
                         <div class="tech-tags">
                             <span class="tag">Python</span>
                             <span class="tag">Deep Learning</span>
@@ -329,7 +360,7 @@
                         </div>
                     </div>
                 </div>
-<!--=====================================================================================================================-->
+                <!--=====================================================================================================================-->
                 <div class="project-card">
                     <div class="project-image">
                         <img src="blue-gradient.png" alt="天空之眼">
@@ -369,7 +400,7 @@
                         </div>
                     </div>
                 </div>
-<!--=====================================================================================================================--> 
+                <!--=====================================================================================================================-->
                 <div class="project-card">
                     <div class="project-image">
                         <img src="blue-gradient.png" alt="Mega公車">
@@ -409,7 +440,7 @@
                         </div>
                     </div>
                 </div>
-<!--=====================================================================================================================-->
+                <!--=====================================================================================================================-->
                 <div class="project-card">
                     <div class="project-image">
                         <img src="blue-gradient.png" alt="毛廁異世界">
@@ -425,7 +456,8 @@
                     </div>
                     <div class="project-content">
                         <h3>🚽 毛廁異世界</h3>
-                        <p>我們製作了一款寓教於樂的遊戲。主角在上課時因逃課去上廁所，意外穿越到異世界。在陌生的世界中，他必須透過回答各式題目來擊敗怪物，將知識化為力量。唯有不斷挑戰、學習與成長，才能一步步突破關卡，最終回到原本的世界，體驗學習與冒險結合的樂趣。</p>
+                        <p>我們製作了一款寓教於樂的遊戲。主角在上課時因逃課去上廁所，意外穿越到異世界。在陌生的世界中，他必須透過回答各式題目來擊敗怪物，將知識化為力量。唯有不斷挑戰、學習與成長，才能一步步突破關卡，最終回到原本的世界，體驗學習與冒險結合的樂趣。
+                        </p>
                         <div class="tech-tags">
                             <span class="tag">tag待放</span>
                         </div>
@@ -449,7 +481,7 @@
                         </div>
                     </div>
                 </div>
-<!--=====================================================================================================================-->
+                <!--=====================================================================================================================-->
                 <div class="project-card">
                     <div class="project-image">
                         <img src="blue-gradient.png" alt="凱比機器人">
@@ -489,15 +521,10 @@
                         </div>
                     </div>
                 </div>
-<!--=====================================================================================================================-->
+                <!--=====================================================================================================================-->
                 <div class="project-card">
                     <div class="project-image">
-                        <video 
-                            src="material/demo-9.mp4" 
-                            autoplay 
-                            muted 
-                            loop 
-                            playsinline
+                        <video src="material/demo-9.mp4" autoplay muted loop playsinline
                             style="width: 100%; height: 100%; object-fit: cover; display: block;">
                         </video>
 
@@ -513,7 +540,8 @@
                     </div>
                     <div class="project-content">
                         <h3>📱 方寸間的智慧</h3>
-                        <p>這是一款專為學生打造的智慧學習與生活助理 App，結合 AI 提醒、學習規劃與健康管理，幫助你把每天的大小事都顧好。從課程提醒到番茄鐘讀書、作業進度追蹤與小測驗複習，AI 都能主動協助，讓學習更有效率。不只顧成績，也在意你的身心狀態，陪你建立好的生活習慣。再加上有趣的獎勵積分機制，讓自律不再痛苦，讓成長變得有趣。</p>
+                        <p>這是一款專為學生打造的智慧學習與生活助理 App，結合 AI 提醒、學習規劃與健康管理，幫助你把每天的大小事都顧好。從課程提醒到番茄鐘讀書、作業進度追蹤與小測驗複習，AI
+                            都能主動協助，讓學習更有效率。不只顧成績，也在意你的身心狀態，陪你建立好的生活習慣。再加上有趣的獎勵積分機制，讓自律不再痛苦，讓成長變得有趣。</p>
                         <div class="tech-tags">
                             <span class="tag">tag待放</span>
                         </div>
@@ -537,7 +565,7 @@
                         </div>
                     </div>
                 </div>
-<!--=====================================================================================================================-->
+                <!--=====================================================================================================================-->
             </div>
         </div>
     </section>
@@ -558,7 +586,7 @@
                     <ul>
                         <li><a href="about.html">關於我們</a></li>
                         <li><a href="projects.html">專題作品</a></li>
-                                <li><a href="register.html">活動報名</a></li>
+                        <li><a href="register.html">活動報名</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -579,4 +607,5 @@
     </footer>
 </body>
 <script src="scripts/main.js"></script>
+
 </html>
