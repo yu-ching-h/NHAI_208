@@ -13,7 +13,7 @@
 <body data-theme="light">
     <script>
         // 開發中控制開關 - 改為 false 就恢復正常頁面
-        const UNDER_CONSTRUCTION = true;
+        const UNDER_CONSTRUCTION = false;
         
         if (UNDER_CONSTRUCTION) {
             document.body.innerHTML = `
@@ -111,7 +111,6 @@
                 <li><a href="about.html">關於我們</a></li>
                 <li><a href="schedule.html">節目表</a></li>
                 <li><a href="projects.html" class="active">專題作品</a></li>
-                <li><a href="team.html">成員介紹</a></li>
                 <li><a href="register.html">活動報名</a></li>
             </ul>
             <div class="theme-toggle">
@@ -161,22 +160,10 @@
                 </div>
             </div>
 
-            <div class="project-filters">
-                <button class="filter-btn active" data-filter="all">全部作品</button>
-                <button class="filter-btn" data-filter="ai">AI 系統</button>
-                <button class="filter-btn" data-filter="cv">電腦視覺</button>
-                <button class="filter-btn" data-filter="game">遊戲開發</button>
-                <button class="filter-btn" data-filter="robotics">機器人</button>
-                <button class="filter-btn" data-filter="iot">物聯網</button>
-            </div>
-
-
-
-
 
             <div class="projects-grid">
 <!--=====================================================================================================================-->
-                <div class="project-card" data-category="cv">
+                <div class="project-card">
                     <div class="project-image">
                         <img src="blue-gradient.png" alt="臉部辨識鎖">
                         <div class="project-overlay">
@@ -196,24 +183,27 @@
                             <span class="tag">tag待放</span>
                         </div>
                         <div class="project-features">
-                            <h4>功能：</h4>
+                            <h4>簡介或其他你香更詳細描述的作品特色，用列點方式</h4>
                             <ul>
                                 <li>特色待放</li>
                             </ul>
                         </div>
                         <div class="project-buttons">
-                            <a href="#" class="btn btn-small">查看詳情</a>
-                            <a href="#" class="btn btn-small btn-secondary">GitHub</a>
-                            <a href="#" class="btn btn-small btn-outline">Demo</a>
-                            <button class="btn btn-small btn-vote" data-project="face-recognition" disabled>
-                                <span class="vote-text">投票給我們</span>
-                                <span class="vote-icon">🗳️</span>
-                            </button>
+
+                            <div class="project-buttons" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                <a href="#" class="btn btn-small">查看詳情</a>
+                                <a href="#" class="btn btn-small btn-secondary">GitHub</a>
+                                <a href="#" class="btn btn-small btn-outline">App Demo</a>
+                                <button class="btn btn-small btn-vote" data-project="smart-space" disabled>
+                                    <span class="vote-text">投票給我們</span>
+                                    <span class="vote-icon">🗳️</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
 <!--=====================================================================================================================-->
-                <div class="project-card" data-category="iot">
+                <div class="project-card">
                     <div class="project-image">
                         <img src="blue-gradient.png" alt="天際捕手">
                         <div class="project-overlay">
@@ -233,24 +223,27 @@
                             <span class="tag">tag待放</span>
                         </div>
                         <div class="project-features">
-                            <h4>特色：</h4>
+                            <h4>簡介或其他你香更詳細描述的作品特色，用列點方式</h4>
                             <ul>
                                 <li>特色待放</li>
                             </ul>
                         </div>
                         <div class="project-buttons">
-                            <a href="#" class="btn btn-small">查看詳情</a>
-                            <a href="#" class="btn btn-small btn-secondary">GitHub</a>
-                            <a href="#" class="btn btn-small btn-outline">Demo</a>
-                            <button class="btn btn-small btn-vote" data-project="sky-catcher" disabled>
-                                <span class="vote-text">投票給我們</span>
-                                <span class="vote-icon">🗳️</span>
-                            </button>
+
+                            <div class="project-buttons" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                <a href="#" class="btn btn-small">查看詳情</a>
+                                <a href="#" class="btn btn-small btn-secondary">GitHub</a>
+                                <a href="#" class="btn btn-small btn-outline">App Demo</a>
+                                <button class="btn btn-small btn-vote" data-project="smart-space" disabled>
+                                    <span class="vote-text">投票給我們</span>
+                                    <span class="vote-icon">🗳️</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
 <!--=====================================================================================================================-->
-                <div class="project-card" data-category="ai">
+                <div class="project-card">
                     <div class="project-image">
                         <img src="blue-gradient.png" alt="折斷的骨氣">
                         <div class="project-overlay">
@@ -267,31 +260,30 @@
                         <h3>🧠 折斷的骨氣</h3>
                         <p>本是合作的兩人（Zero和Flux）為了爭奪「神經核心」的控制權，所以他們互相對決，想要首先集齊兩片核心碎片。（總共有三個碎片，只要集齊兩個就可以獲得控制權）（Zero認為所有程式都應該完美無缺，Flux認為只有混亂才能創造無限可能）沒獲得控制權的一方，會被系統自動「格式化」。</p>
                         <div class="tech-tags">
-                            <span class="tag"></span>
+                            <span class="tag">tag待放</span>
                         </div>
                         <div class="project-features">
-                            <h4>故事設定：</h4>
+                            <h4>簡介或其他你香更詳細描述的作品特色，用列點方式</h4>
                             <ul>
-                                <li>Zero：追求完美無缺的程式</li>
-                                <li>Flux：相信混亂創造可能</li>
-                                <li>神經核心：系統控制權的象徵</li>
-                                <li>核心碎片：3片中集齊2片即勝</li>
-                                <li>失敗懲罰：被系統格式化</li>
+                                <li>待放</li>
                             </ul>
                         </div>
                         <div class="project-buttons">
-                            <a href="#" class="btn btn-small">查看詳情</a>
-                            <a href="#" class="btn btn-small btn-secondary">GitHub</a>
-                            <a href="#" class="btn btn-small btn-outline">對戰Demo</a>
-                            <button class="btn btn-small btn-vote" data-project="broken-spirit" disabled>
-                                <span class="vote-text">投票給我們</span>
-                                <span class="vote-icon">🗳️</span>
-                            </button>
+
+                            <div class="project-buttons" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                <a href="#" class="btn btn-small">查看詳情</a>
+                                <a href="#" class="btn btn-small btn-secondary">GitHub</a>
+                                <a href="#" class="btn btn-small btn-outline">App Demo</a>
+                                <button class="btn btn-small btn-vote" data-project="smart-space" disabled>
+                                    <span class="vote-text">投票給我們</span>
+                                    <span class="vote-icon">🗳️</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
 <!--=====================================================================================================================-->                
-                <div class="project-card" data-category="ai">
+                <div class="project-card">
                     <div class="project-image">
                         <img src="blue-gradient.png" alt="AI 網路封包系統">
                         <div class="project-overlay">
@@ -306,7 +298,7 @@
                     </div>
                     <div class="project-content">
                         <h3>🔒 AI 網路封包系統</h3>
-                        <p>本專案開發一套基於 LSTM 深度學習架構的即時網路入侵偵測系統（NIDS）。系統透過高效能封包擷取技術，監控網卡原始流量並轉化為流特徵（Flow-based），利用 CSE-CIC-IDS2018 權威數據集訓練，使模型具備優異的時序分析能力。本系統不僅能精準識別 DoS、Botnet 及 SQL 注入等複雜攻擊，更專注於捕捉異常行為的動態規律，實現自動化且智能化的網路安全威脅預警與即時防禦。</p>
+                        <p>我們的專題開發一套基於 LSTM 深度學習架構的即時網路入侵偵測系統（NIDS）。系統透過高效能封包擷取技術，監控網卡原始流量並轉化為流特徵（Flow-based），利用 CSE-CIC-IDS2018 權威數據集訓練，使模型具備優異的時序分析能力。本系統不僅能精準識別 DoS、Botnet 及 SQL 注入等複雜攻擊，更專注於捕捉異常行為的動態規律，實現自動化且智能化的網路安全威脅預警與即時防禦。</p>
                         <div class="tech-tags">
                             <span class="tag">Python</span>
                             <span class="tag">Deep Learning</span>
@@ -324,17 +316,21 @@
                             </ul>
                         </div>
                         <div class="project-buttons">
-                            <a href="#" class="btn btn-small">查看詳情</a>
-                            <a href="#" class="btn btn-small btn-secondary">GitHub</a>
-                            <button class="btn btn-small btn-vote" data-project="ai-network" disabled>
-                                <span class="vote-text">投票給我們</span>
-                                <span class="vote-icon">🗳️</span>
-                            </button>
+
+                            <div class="project-buttons" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                <a href="#" class="btn btn-small">查看詳情</a>
+                                <a href="#" class="btn btn-small btn-secondary">GitHub</a>
+                                <a href="#" class="btn btn-small btn-outline">App Demo</a>
+                                <button class="btn btn-small btn-vote" data-project="smart-space" disabled>
+                                    <span class="vote-text">投票給我們</span>
+                                    <span class="vote-icon">🗳️</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
 <!--=====================================================================================================================-->
-                <div class="project-card" data-category="drone">
+                <div class="project-card">
                     <div class="project-image">
                         <img src="blue-gradient.png" alt="天空之眼">
                         <div class="project-overlay">
@@ -351,23 +347,30 @@
                         <h3>🚁 天空之眼</h3>
                         <p>簡介待放</p>
                         <div class="tech-tags">
-                            <span class="tag">Drone Control</span>
-                            <span class="tag">Computer Vision</span>
-                            <span class="tag">Real-time Processing</span>
-                            <span class="tag">Flight Control</span>
+                            <span class="tag">tag待放</span>
+                        </div>
+                        <div class="project-features">
+                            <h4>簡介或其他你香更詳細描述的作品特色，用列點方式</h4>
+                            <ul>
+                                <li>待放</li>
+                            </ul>
                         </div>
                         <div class="project-buttons">
-                            <a href="#" class="btn btn-small">查看詳情</a>
-                            <a href="#" class="btn btn-small btn-secondary">GitHub</a>
-                            <button class="btn btn-small btn-vote" data-project="sky-eye" disabled>
-                                <span class="vote-text">投票給我們</span>
-                                <span class="vote-icon">🗳️</span>
-                            </button>
+
+                            <div class="project-buttons" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                <a href="#" class="btn btn-small">查看詳情</a>
+                                <a href="#" class="btn btn-small btn-secondary">GitHub</a>
+                                <a href="#" class="btn btn-small btn-outline">App Demo</a>
+                                <button class="btn btn-small btn-vote" data-project="smart-space" disabled>
+                                    <span class="vote-text">投票給我們</span>
+                                    <span class="vote-icon">🗳️</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
 <!--=====================================================================================================================--> 
-                <div class="project-card" data-category="iot">
+                <div class="project-card">
                     <div class="project-image">
                         <img src="blue-gradient.png" alt="Mega公車">
                         <div class="project-overlay">
@@ -384,25 +387,30 @@
                         <h3>🚌 Mega 公車</h3>
                         <p>這台公車提供了更智慧的服務，他可以像捷運一樣提供目前的擁擠度，並且顯示在車門外，讓搭車的人知道這輛的舒適度，並且當車輛靠站的同時如果有偵測到輪椅，他就會把無障礙坡道放下來。</p>
                         <div class="tech-tags">
-                            <span class="tag">IoT</span>
-                            <span class="tag">Arduino</span>
-                            <span class="tag">人數統計</span>
-                            <span class="tag">輪椅辨識</span>
-                            <span class="tag">無障礙設計</span>
+                            <span class="tag">tag待放</span>
+                        </div>
+                        <div class="project-features">
+                            <h4>簡介或其他你香更詳細描述的作品特色，用列點方式</h4>
+                            <ul>
+                                <li>待放</li>
+                            </ul>
                         </div>
                         <div class="project-buttons">
-                            <a href="#" class="btn btn-small">查看詳情</a>
-                            <a href="#" class="btn btn-small btn-secondary">GitHub</a>
-                            <a href="#" class="btn btn-small btn-outline">Demo</a>
-                            <button class="btn btn-small btn-vote" data-project="mega-bus" disabled>
-                                <span class="vote-text">投票給我們</span>
-                                <span class="vote-icon">🗳️</span>
-                            </button>
+
+                            <div class="project-buttons" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                <a href="#" class="btn btn-small">查看詳情</a>
+                                <a href="#" class="btn btn-small btn-secondary">GitHub</a>
+                                <a href="#" class="btn btn-small btn-outline">App Demo</a>
+                                <button class="btn btn-small btn-vote" data-project="smart-space" disabled>
+                                    <span class="vote-text">投票給我們</span>
+                                    <span class="vote-icon">🗳️</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
 <!--=====================================================================================================================-->
-                <div class="project-card" data-category="game">
+                <div class="project-card">
                     <div class="project-image">
                         <img src="blue-gradient.png" alt="毛廁異世界">
                         <div class="project-overlay">
@@ -419,35 +427,30 @@
                         <h3>🚽 毛廁異世界</h3>
                         <p>我們製作了一款寓教於樂的遊戲。主角在上課時因逃課去上廁所，意外穿越到異世界。在陌生的世界中，他必須透過回答各式題目來擊敗怪物，將知識化為力量。唯有不斷挑戰、學習與成長，才能一步步突破關卡，最終回到原本的世界，體驗學習與冒險結合的樂趣。</p>
                         <div class="tech-tags">
-                            <span class="tag">Unity</span>
-                            <span class="tag">C#</span>
-                            <span class="tag">Game Design</span>
-                            <span class="tag">教育遊戲</span>
-                            <span class="tag">2D Graphics</span>
+                            <span class="tag">tag待放</span>
                         </div>
                         <div class="project-features">
-                            <h4>遊戲特色：</h4>
+                            <h4>簡介或其他你香更詳細描述的作品特色，用列點方式</h4>
                             <ul>
-                                <li>寓教於樂的學習體驗</li>
-                                <li>多樣化的題目挑戰</li>
-                                <li>異世界冒險劇情</li>
-                                <li>知識與戰鬥結合</li>
-                                <li>關卡式成長系統</li>
+                                <li>待放</li>
                             </ul>
                         </div>
                         <div class="project-buttons">
-                            <a href="#" class="btn btn-small">查看詳情</a>
-                            <a href="#" class="btn btn-small btn-secondary">GitHub</a>
-                            <a href="#" class="btn btn-small btn-outline">試玩</a>
-                            <button class="btn btn-small btn-vote" data-project="toilet-world" disabled>
-                                <span class="vote-text">投票給我們</span>
-                                <span class="vote-icon">🗳️</span>
-                            </button>
+
+                            <div class="project-buttons" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                <a href="#" class="btn btn-small">查看詳情</a>
+                                <a href="#" class="btn btn-small btn-secondary">GitHub</a>
+                                <a href="#" class="btn btn-small btn-outline">App Demo</a>
+                                <button class="btn btn-small btn-vote" data-project="smart-space" disabled>
+                                    <span class="vote-text">投票給我們</span>
+                                    <span class="vote-icon">🗳️</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
 <!--=====================================================================================================================-->
-                <div class="project-card" data-category="robotics">
+                <div class="project-card">
                     <div class="project-image">
                         <img src="blue-gradient.png" alt="凱比機器人">
                         <div class="project-overlay">
@@ -464,37 +467,40 @@
                         <h3>🤖 凱比機器人</h3>
                         <p>本專題以凱比機器人在活動場合中做迎賓接待為主題，透過設計互動流程，讓凱比能在有人靠近時打招呼，並進行簡單的對話與互動，提升迎賓接待的便利性和趣味性。</p>
                         <div class="tech-tags">
-                            <span class="tag">Robotics</span>
-                            <span class="tag">語音辨識</span>
-                            <span class="tag">人機互動</span>
-                            <span class="tag">迎賓系統</span>
-                            <span class="tag">Arduino</span>
+                            <span class="tag">tag待放</span>
                         </div>
                         <div class="project-features">
-                            <h4>主要功能：</h4>
+                            <h4>簡介或其他你香更詳細描述的作品特色，用列點方式</h4>
                             <ul>
-                                <li>人員接近自動偵測</li>
-                                <li>主動打招呼與問候</li>
-                                <li>簡單對話與互動</li>
-                                <li>迎賓接待流程設計</li>
-                                <li>活動場合應用優化</li>
+                                <li>待放</li>
                             </ul>
                         </div>
                         <div class="project-buttons">
-                            <a href="#" class="btn btn-small">查看詳情</a>
-                            <a href="#" class="btn btn-small btn-secondary">GitHub</a>
-                            <a href="#" class="btn btn-small btn-outline">互動Demo</a>
-                            <button class="btn btn-small btn-vote" data-project="kebi-robot" disabled>
-                                <span class="vote-text">投票給我們</span>
-                                <span class="vote-icon">🗳️</span>
-                            </button>
+
+                            <div class="project-buttons" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                <a href="#" class="btn btn-small">查看詳情</a>
+                                <a href="#" class="btn btn-small btn-secondary">GitHub</a>
+                                <a href="#" class="btn btn-small btn-outline">App Demo</a>
+                                <button class="btn btn-small btn-vote" data-project="smart-space" disabled>
+                                    <span class="vote-text">投票給我們</span>
+                                    <span class="vote-icon">🗳️</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
 <!--=====================================================================================================================-->
-                <div class="project-card" data-category="ai">
+                <div class="project-card">
                     <div class="project-image">
-                        <img src="blue-gradient.png" alt="方寸間的智慧">
+                        <video 
+                            src="material/demo-9.mp4" 
+                            autoplay 
+                            muted 
+                            loop 
+                            playsinline
+                            style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                        </video>
+
                         <div class="project-overlay">
                             <div class="project-stats">
                                 <span>📊 第九組</span>
@@ -509,31 +515,25 @@
                         <h3>📱 方寸間的智慧</h3>
                         <p>這是一款專為學生打造的智慧學習與生活助理 App，結合 AI 提醒、學習規劃與健康管理，幫助你把每天的大小事都顧好。從課程提醒到番茄鐘讀書、作業進度追蹤與小測驗複習，AI 都能主動協助，讓學習更有效率。不只顧成績，也在意你的身心狀態，陪你建立好的生活習慣。再加上有趣的獎勵積分機制，讓自律不再痛苦，讓成長變得有趣。</p>
                         <div class="tech-tags">
-                            <span class="tag">AI助理</span>
-                            <span class="tag">學習規劃</span>
-                            <span class="tag">健康管理</span>
-                            <span class="tag">番茄鐘</span>
-                            <span class="tag">積分獎勵</span>
+                            <span class="tag">tag待放</span>
                         </div>
                         <div class="project-features">
-                            <h4>核心功能：</h4>
+                            <h4>簡介或其他你香更詳細描述的作品特色，用列點方式</h4>
                             <ul>
-                                <li>AI 智慧提醒與規劃</li>
-                                <li>番茄鐘專注學習</li>
-                                <li>作業進度追蹤</li>
-                                <li>小測驗複習系統</li>
-                                <li>身心健康管理</li>
-                                <li>獎勵積分機制</li>
+                                <li>待放</li>
                             </ul>
                         </div>
                         <div class="project-buttons">
-                            <a href="#" class="btn btn-small">查看詳情</a>
-                            <a href="#" class="btn btn-small btn-secondary">GitHub</a>
-                            <a href="#" class="btn btn-small btn-outline">App Demo</a>
-                            <button class="btn btn-small btn-vote" data-project="smart-space" disabled>
-                                <span class="vote-text">投票給我們</span>
-                                <span class="vote-icon">🗳️</span>
-                            </button>
+
+                            <div class="project-buttons" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                <a href="#" class="btn btn-small">查看詳情</a>
+                                <a href="#" class="btn btn-small btn-secondary">GitHub</a>
+                                <a href="#" class="btn btn-small btn-outline">App Demo</a>
+                                <button class="btn btn-small btn-vote" data-project="smart-space" disabled>
+                                    <span class="vote-text">投票給我們</span>
+                                    <span class="vote-icon">🗳️</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -558,8 +558,7 @@
                     <ul>
                         <li><a href="about.html">關於我們</a></li>
                         <li><a href="projects.html">專題作品</a></li>
-                        <li><a href="team.html">成員介紹</a></li>
-                        <li><a href="register.html">活動報名</a></li>
+                                <li><a href="register.html">活動報名</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">

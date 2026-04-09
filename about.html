@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +8,16 @@
     <link rel="stylesheet" href="styles/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
+
 <body data-theme="light">
     <script>
         // 開發中控制開關 - 改為 false 就恢復正常頁面
-        const UNDER_CONSTRUCTION = true;
-        
+        const UNDER_CONSTRUCTION = false;
+
         if (UNDER_CONSTRUCTION) {
             document.body.innerHTML = `
                 <style>
@@ -111,7 +114,6 @@
                 <li><a href="about.html" class="active">關於我們</a></li>
                 <li><a href="schedule.html">節目表</a></li>
                 <li><a href="projects.html">專題作品</a></li>
-                <li><a href="team.html">成員介紹</a></li>
                 <li><a href="register.html">活動報名</a></li>
             </ul>
             <div class="theme-toggle">
@@ -140,24 +142,20 @@
             <div class="about-content">
                 <div class="about-story">
                     <h2>內湖高中 208 班</h2>
-                    <p>我們是內湖高中 208 班。本次成發以『Algorithms』為題，將邏輯思考轉化為程式實作。山雀作為我們的吉祥物，象徵著敏捷與探索的精神。透過演算法的學習與實作，我們展現了在程式設計領域的成果與創意。</p>
-                    
-                    <div class="story-details">
-                        <div class="detail-item">
-                            <h3>🎯 我們的使命</h3>
-                            <p>將抽象的演算法概念轉化為具體的程式實作，透過創新思維解決實際問題，展現程式設計的無限可能。</p>
-                        </div>
-                        
-                        <div class="detail-item">
-                            <h3>🚀 學習歷程</h3>
-                            <p>從基礎程式語法開始，逐步深入演算法設計、資料結構應用，最終完成各具特色的專題作品，展現我們的學習成果。</p>
-                        </div>
-                        
-                        <div class="detail-item">
-                            <h3>🌟 團隊精神</h3>
-                            <p>如同山雀般敏捷靈活，我們在學習過程中互相協作、共同成長，每個人都發揮自己的專長，創造出精彩的作品。</p>
+                    <p>我們是內湖高中 208
+                        班。本次成發以『Algorithms』為題，將邏輯思考轉化為程式實作。山雀作為我們的吉祥物，象徵著敏捷與探索的精神。透過演算法的學習與實作，我們展現了在程式設計領域的成果與創意。</p>
+
+                    <!-- 班級合照 -->
+                    <div class="team-photo">
+                        <div class="photo-gallery">
+                            <div class="photo-container">
+                                <img src="material/班級合照.jpeg" alt="團隊合照" class="formal-photo">
+                                <img src="material/班級合照.jpeg" alt="搞怪合照" class="fun-photo">
+                            </div>
+                            <p>滑鼠懸停看看我們的另一面！</p>
                         </div>
                     </div>
+
                 </div>
 
                 <div class="mascot-section">
@@ -170,36 +168,152 @@
                     </div>
                 </div>
 
+                <!-- 獎項紀錄 -->
+                <div class="awards-section">
+                    <h2>🏆 獎項紀錄</h2>
+                    <div class="awards-grid">
 
+                        <!-- Row: 短卡 x2 (各1項) -->
+                        <div class="award-card">
+                            <div class="award-header">
+                                <span class="award-icon">📖</span>
+                                <h3>全國高級中等學校閱讀心得寫作比賽</h3>
+                            </div>
+                            <ul class="award-list">
+                                <li><span class="award-rank rank-gold">特優</span> 林沄嬡</li>
+                            </ul>
+                        </div>
 
-                <div class="team-photo">
-                    <h2>班級回憶</h2>
-                    <div class="photo-gallery">
-                        <div class="photo-container">
-                            <img src="https://via.placeholder.com/600x400/8C6E54/FFFFFF?text=團隊合照" alt="團隊合照" class="formal-photo">
-                            <img src="https://via.placeholder.com/600x400/FDE2E4/593825?text=搞怪合照" alt="搞怪合照" class="fun-photo">
+                        <div class="award-card">
+                            <div class="award-header">
+                                <span class="award-icon">🤖</span>
+                                <h3>凱比機器人跨域應用競賽</h3>
+                            </div>
+                            <ul class="award-list">
+                                <li><span class="award-rank rank-gold">第一名 創新卓越獎</span> 李京翰、李翊嘉、黃郁晴</li>
+                            </ul>
                         </div>
-                        <p>滑鼠懸停看看我們的另一面！</p>
-                    </div>
-                    
-                    <div class="memory-grid">
-                        <div class="memory-item">
-                            <img src="https://via.placeholder.com/300x200/D9CAB8/262014?text=程式課堂" alt="程式課堂">
-                            <h4>程式課堂</h4>
-                            <p>專注學習的每一刻</p>
+
+                        <!-- Row: 短卡 x2 (各1-2項) -->
+                        <div class="award-card">
+                            <div class="award-header">
+                                <span class="award-icon">📝</span>
+                                <h3>114學年度第一學期 台北市立內湖高中英文單字王比賽</h3>
+                            </div>
+                            <ul class="award-list">
+                                <li><span class="award-rank rank-honor">第五名</span> 林定穎</li>
+                            </ul>
                         </div>
-                        <div class="memory-item">
-                            <img src="https://via.placeholder.com/300x200/8E97A4/FFFFFF?text=專題討論" alt="專題討論">
-                            <h4>專題討論</h4>
-                            <p>激烈的腦力激盪</p>
+
+                        <div class="award-card">
+                            <div class="award-header">
+                                <span class="award-icon">🚁</span>
+                                <h3>台北市114年度無人機競賽</h3>
+                            </div>
+                            <p class="award-category">AI自動識別組</p>
+                            <ul class="award-list">
+                                <li><span class="award-rank rank-bronze">第三名</span> 李政霖、翁瑞言</li>
+                            </ul>
                         </div>
-                        <div class="memory-item">
-                            <img src="https://via.placeholder.com/300x200/FDE2E4/593825?text=成果展示" alt="成果展示">
-                            <h4>成果展示</h4>
-                            <p>驕傲展現學習成果</p>
+
+                        <!-- Row: 中卡 x2 (各2項) -->
+                        <div class="award-card">
+                            <div class="award-header">
+                                <span class="award-icon">🔬</span>
+                                <h3>113學年度自然暨數學科學科能力競賽</h3>
+                            </div>
+                            <ul class="award-list">
+                                <li><span class="award-rank rank-bronze">第三名</span> 物理科 — 李翊嘉</li>
+                                <li><span class="award-rank rank-honor">佳作</span> 數學科 — 李翊嘉</li>
+                            </ul>
                         </div>
+
+                        <div class="award-card">
+                            <div class="award-header">
+                                <span class="award-icon">🔐</span>
+                                <h3>2025 國會科「尋找資安女婕思」全國決賽</h3>
+                            </div>
+                            <ul class="award-list">
+                                <li><span class="award-rank rank-silver">第二名</span> 李禹璇、張芝齊、陳宜萱、曾若予</li>
+                                <li><span class="award-rank rank-honor">優勝</span> 李馥均、林沄嬡、洪莉雅、鄭詠云</li>
+                            </ul>
+                        </div>
+
+                        <!-- Row: 中卡 x2 (各2項 + 子類別) -->
+                        <div class="award-card">
+                            <div class="award-header">
+                                <span class="award-icon">🌐</span>
+                                <h3>2024 第十三屆專業英日文（ESP）詞彙與聽寫說能力大賽 北一區區域賽</h3>
+                            </div>
+                            <p class="award-category">人工智慧（PVQC AI Literacy）組</p>
+                            <ul class="award-list">
+                                <li><span class="award-rank rank-gold">冠軍</span> 李政霖</li>
+                                <li><span class="award-rank rank-special">金頭腦獎</span> 李翊嘉、李學銘</li>
+                            </ul>
+                        </div>
+
+                        <div class="award-card">
+                            <div class="award-header">
+                                <span class="award-icon">🌐</span>
+                                <h3>2025 第十四屆專業英日文（ESP）詞彙與聽寫說能力大賽 北一區區域賽</h3>
+                            </div>
+                            <ul class="award-list">
+                                <li><span class="award-rank rank-special">金頭腦獎</span> 人工智慧組 — 黃郁晴、李京翰</li>
+                                <li><span class="award-rank rank-special">金頭腦獎</span> 資訊（計算機）組 — 李政霖</li>
+                            </ul>
+                        </div>
+
+                        <!-- Row: 中長卡 x2 (各2-4項 + 子類別) -->
+                        <div class="award-card">
+                            <div class="award-header">
+                                <span class="award-icon">🛡️</span>
+                                <h3>2025 國防AI應用創新競賽</h3>
+                            </div>
+                            <p class="award-category">社會組</p>
+                            <ul class="award-list">
+                                <li><span class="award-rank rank-honor">佳作</span> 黃郁晴、李京翰、李翊嘉、尹作暄、王睿言</li>
+                                <li><span class="award-rank rank-special">特別表現獎</span> 黃郁晴、李京翰、李翊嘉、尹作暄、王睿言</li>
+                            </ul>
+                        </div>
+
+                        <div class="award-card">
+                            <div class="award-header">
+                                <span class="award-icon">💻</span>
+                                <h3>內湖高中114學年度資訊學科能力競賽</h3>
+                            </div>
+                            <ul class="award-list">
+                                <li><span class="award-rank rank-gold">第一名</span> 李翊嘉</li>
+                                <li><span class="award-rank rank-silver">第二名</span> 李京翰</li>
+                                <li><span class="award-rank rank-bronze">第三名</span> 翁瑞言</li>
+                                <li><span class="award-rank rank-honor">佳作</span> 鄭詠云、李政霖、鍾曜澤、黃郁晴</li>
+                            </ul>
+                        </div>
+
+                        <!-- Row: 長卡 (5項 + 2子類別，獨佔整行) -->
+                        <div class="award-card award-card-wide">
+                            <div class="award-header">
+                                <span class="award-icon">🤖</span>
+                                <h3>台北市114年度資通訊應用大賽 智組型機器人競賽</h3>
+                            </div>
+                            <p class="award-category">創意賽</p>
+                            <ul class="award-list">
+                                <li><span class="award-rank rank-silver">第二名</span> 尤昱升、葉家昇、王睿言</li>
+                                <li><span class="award-rank rank-bronze">第三名</span> 翁瑞言、張詔盛、許珈瑋</li>
+                            </ul>
+                            <p class="award-category">任務闖關賽</p>
+                            <ul class="award-list">
+                                <li><span class="award-rank rank-honor">第四名</span> 李翊嘉、黃郁晴、陳泓序</li>
+                                <li><span class="award-rank rank-honor">第五名</span> 李政霖、李學銘、陳秉謙</li>
+                                <li><span class="award-rank rank-honor">第六名</span> 張厚薪、鍾曜澤、鄭承淏</li>
+                            </ul>
+                        </div>
+
                     </div>
                 </div>
+
+            </div>
+
+
             </div>
         </div>
     </section>
@@ -217,8 +331,7 @@
                     <ul>
                         <li><a href="about.html">關於我們</a></li>
                         <li><a href="projects.html">專題作品</a></li>
-                        <li><a href="team.html">成員介紹</a></li>
-                        <li><a href="register.html">活動報名</a></li>
+                                <li><a href="register.html">活動報名</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -239,4 +352,5 @@
     </footer>
 </body>
 <script src="scripts/main.js"></script>
+
 </html>

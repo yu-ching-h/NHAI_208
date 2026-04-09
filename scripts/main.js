@@ -1,7 +1,7 @@
 // Main JavaScript for Code with Heart Website
 
 // DOM Content Loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initializeWebsite();
 });
 
@@ -13,7 +13,7 @@ function initializeWebsite() {
     initSmoothScrolling();
     // 暫時移除動畫初始化
     // initAnimations();
-    initProjectFilters();
+    //initProjectFilters();
     // initRegistrationForm(); // 已移除，避免與新的表單處理衝突
     initSkillRadars();
     initScrollAnimations();
@@ -23,9 +23,9 @@ function initializeWebsite() {
 // Loading Screen Handler
 function handleLoading() {
     const loadingScreen = document.getElementById('loading');
-    
+
     if (!loadingScreen) return; // 如果沒有 loading screen 就跳過
-    
+
     // Simulate loading time - 縮短載入時間
     setTimeout(() => {
         loadingScreen.style.opacity = '0';
@@ -42,10 +42,10 @@ function handleLoading() {
 function initThemeToggle() {
     const themeSwitch = document.getElementById('theme-switch');
     const body = document.body;
-    
+
     // Check for saved theme preference or default to light
     const savedTheme = localStorage.getItem('theme') || 'light';
-    
+
     // Apply the theme
     if (savedTheme === 'dark') {
         body.setAttribute('data-theme', 'dark');
@@ -54,9 +54,9 @@ function initThemeToggle() {
         body.setAttribute('data-theme', 'light');
         themeSwitch.checked = false;
     }
-    
+
     // Theme switch event listener
-    themeSwitch.addEventListener('change', function() {
+    themeSwitch.addEventListener('change', function () {
         if (this.checked) {
             body.setAttribute('data-theme', 'dark');
             localStorage.setItem('theme', 'dark');
@@ -64,7 +64,7 @@ function initThemeToggle() {
             body.setAttribute('data-theme', 'light');
             localStorage.setItem('theme', 'light');
         }
-        
+
         // Add transition effect
         body.style.transition = 'all 0.3s ease';
         setTimeout(() => {
@@ -77,16 +77,16 @@ function initThemeToggle() {
 function initCountdownTimer() {
     // Set target date: 2026.04.22 13:00
     const targetDate = new Date('2026-04-22T13:00:00');
-    
+
     const daysElement = document.getElementById('days');
     const hoursElement = document.getElementById('hours');
     const minutesElement = document.getElementById('minutes');
     const secondsElement = document.getElementById('seconds');
-    
+
     function updateCountdown() {
         const now = new Date().getTime();
         const distance = targetDate.getTime() - now;
-        
+
         if (distance < 0) {
             // Event has started
             daysElement.textContent = '00';
@@ -95,24 +95,24 @@ function initCountdownTimer() {
             secondsElement.textContent = '00';
             return;
         }
-        
+
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
+
         // Add animation when numbers change
         updateNumberWithAnimation(daysElement, days.toString().padStart(2, '0'));
         updateNumberWithAnimation(hoursElement, hours.toString().padStart(2, '0'));
         updateNumberWithAnimation(minutesElement, minutes.toString().padStart(2, '0'));
         updateNumberWithAnimation(secondsElement, seconds.toString().padStart(2, '0'));
     }
-    
+
     function updateNumberWithAnimation(element, newValue) {
         if (element.textContent !== newValue) {
             element.style.transform = 'scale(1.1)';
             element.style.color = 'var(--accent-color)';
-            
+
             setTimeout(() => {
                 element.textContent = newValue;
                 element.style.transform = 'scale(1)';
@@ -120,7 +120,7 @@ function initCountdownTimer() {
             }, 150);
         }
     }
-    
+
     // Update countdown every second
     updateCountdown();
     setInterval(updateCountdown, 1000);
@@ -129,17 +129,17 @@ function initCountdownTimer() {
 // Smooth Scrolling for Navigation Links
 function initSmoothScrolling() {
     const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
-    
+
     navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             e.preventDefault();
-            
+
             const targetId = this.getAttribute('href');
             const targetSection = document.querySelector(targetId);
-            
+
             if (targetSection) {
                 const offsetTop = targetSection.offsetTop - 100; // 增加 offset 避免被導航欄遮住
-                
+
                 window.scrollTo({
                     top: offsetTop,
                     behavior: 'smooth'
@@ -156,14 +156,14 @@ function initAnimations() {
         console.warn('GSAP not loaded, using fallback animations');
         return;
     }
-    
+
     // 導航欄滾動效果 - 固定在頂部，滾動時降低透明度
     const navbar = document.querySelector('.navbar');
-    
+
     if (navbar) {
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
+
             // 滾動超過 50px 時添加 scrolled 類別
             if (scrollTop > 50) {
                 navbar.classList.add('scrolled');
@@ -227,13 +227,13 @@ const konamiSequence = [
     'KeyB', 'KeyA'
 ];
 
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', function (e) {
     konamiCode.push(e.code);
-    
+
     if (konamiCode.length > konamiSequence.length) {
         konamiCode.shift();
     }
-    
+
     if (konamiCode.join(',') === konamiSequence.join(',')) {
         triggerEasterEgg();
         konamiCode = [];
@@ -247,7 +247,7 @@ function triggerEasterEgg() {
             createFlyingBird();
         }, i * 200);
     }
-    
+
     // Show special message
     const message = document.createElement('div');
     message.innerHTML = '🎉 小肥啾大軍來襲！你發現了隱藏彩蛋！ 🎉';
@@ -266,9 +266,9 @@ function triggerEasterEgg() {
         box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         text-align: center;
     `;
-    
+
     document.body.appendChild(message);
-    
+
     setTimeout(() => {
         message.remove();
     }, 3000);
@@ -285,7 +285,7 @@ function createFlyingBird() {
         object-fit: contain;
     `;
     bird.appendChild(birdImg);
-    
+
     bird.style.cssText = `
         position: fixed;
         z-index: 9999;
@@ -293,9 +293,9 @@ function createFlyingBird() {
         left: -50px;
         top: ${Math.random() * window.innerHeight}px;
     `;
-    
+
     document.body.appendChild(bird);
-    
+
     if (typeof gsap !== 'undefined') {
         gsap.to(bird, {
             duration: 3,
@@ -309,31 +309,7 @@ function createFlyingBird() {
     }
 }
 
-// Project Filters
-function initProjectFilters() {
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('.project-card');
-    
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Remove active class from all buttons
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            // Add active class to clicked button
-            this.classList.add('active');
-            
-            const filter = this.getAttribute('data-filter');
-            
-            projectCards.forEach(card => {
-                if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                    card.style.display = 'block';
-                    card.style.animation = 'fadeIn 0.5s ease forwards';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
-    });
-}
+
 
 // 舊的註冊表單函數已移除，避免衝突
 // Registration Form - REMOVED to avoid conflicts
@@ -368,7 +344,7 @@ function showRegistrationSuccess(name) {
             </div>
         </div>
     `;
-    
+
     modal.style.cssText = `
         position: fixed;
         top: 0;
@@ -382,9 +358,9 @@ function showRegistrationSuccess(name) {
         z-index: 10000;
         animation: fadeIn 0.3s ease;
     `;
-    
+
     document.body.appendChild(modal);
-    
+
     // Add styles for success modal
     const style = document.createElement('style');
     style.textContent = `
@@ -473,7 +449,7 @@ function showRegistrationSuccess(name) {
         }
     `;
     document.head.appendChild(style);
-    
+
     // Store references for cleanup
     window.currentModal = modal;
     window.currentModalStyle = style;
@@ -494,7 +470,7 @@ function initSkillRadars() {
         console.warn('Chart.js not loaded, skipping radar charts');
         return;
     }
-    
+
     const radarData = [
         {
             id: 'radar-1',
@@ -548,7 +524,7 @@ function initSkillRadars() {
             }
         }
     ];
-    
+
     radarData.forEach(radar => {
         const canvas = document.getElementById(radar.id);
         if (canvas) {
@@ -590,7 +566,7 @@ function initScrollAnimations() {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -598,7 +574,7 @@ function initScrollAnimations() {
             }
         });
     }, observerOptions);
-    
+
     // Add animation classes to elements
     const animatedElements = document.querySelectorAll(`
         .about-story,
@@ -609,7 +585,7 @@ function initScrollAnimations() {
         .register-info,
         .register-form
     `);
-    
+
     animatedElements.forEach(el => {
         el.classList.add('fade-in-up');
         observer.observe(el);
@@ -617,18 +593,18 @@ function initScrollAnimations() {
 }
 
 // Enhanced Button Interactions
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Add ripple effect to buttons
     const buttons = document.querySelectorAll('.btn');
-    
+
     buttons.forEach(button => {
-        button.addEventListener('click', function(e) {
+        button.addEventListener('click', function (e) {
             const ripple = document.createElement('span');
             const rect = this.getBoundingClientRect();
             const size = Math.max(rect.width, rect.height);
             const x = e.clientX - rect.left - size / 2;
             const y = e.clientY - rect.top - size / 2;
-            
+
             ripple.style.cssText = `
                 position: absolute;
                 width: ${size}px;
@@ -641,15 +617,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 animation: ripple 0.6s linear;
                 pointer-events: none;
             `;
-            
+
             this.style.position = 'relative';
             this.style.overflow = 'hidden';
             this.appendChild(ripple);
-            
+
             setTimeout(() => ripple.remove(), 600);
         });
     });
-    
+
     // Add ripple animation
     const style = document.createElement('style');
     style.textContent = `
@@ -664,11 +640,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Parallax Effect for Hero Section
-window.addEventListener('scroll', function() {
+window.addEventListener('scroll', function () {
     const scrolled = window.pageYOffset;
     const hero = document.querySelector('.hero');
     const mascot = document.querySelector('.mascot-container');
-    
+
     if (hero && mascot) {
         const rate = scrolled * -0.5;
         mascot.style.transform = `translateY(${rate}px)`;
@@ -701,7 +677,7 @@ function createFloatingParticles() {
         z-index: -1;
         overflow: hidden;
     `;
-    
+
     for (let i = 0; i < 20; i++) {
         const particle = document.createElement('div');
         particle.innerHTML = ['💻', '🚀', '⚡', '🎯', '💡'][Math.floor(Math.random() * 5)];
@@ -715,9 +691,9 @@ function createFloatingParticles() {
         `;
         particleContainer.appendChild(particle);
     }
-    
+
     document.body.appendChild(particleContainer);
-    
+
     // Add floating animation
     const style = document.createElement('style');
     style.textContent = `
@@ -736,7 +712,7 @@ function initPageTransitions() {
     // Add transition class to main content
     const mainContent = document.querySelector('main') || document.body;
     mainContent.classList.add('page-transition');
-    
+
     // Trigger loaded state after a short delay
     setTimeout(() => {
         mainContent.classList.add('loaded');
@@ -749,12 +725,12 @@ function initSkillRadars() {
     if (!document.getElementById('radar-1')) {
         return;
     }
-    
+
     if (typeof Chart === 'undefined') {
         console.warn('Chart.js not loaded, skipping radar charts');
         return;
     }
-    
+
     const radarData = [
         {
             id: 'radar-1',
@@ -859,7 +835,7 @@ function initSkillRadars() {
             }
         }
     ];
-    
+
     radarData.forEach(radar => {
         const canvas = document.getElementById(radar.id);
         if (canvas) {
@@ -901,15 +877,15 @@ function initSkillRadars() {
 function validateField() {
     const field = this;
     const value = field.value.trim();
-    
+
     // Remove existing error
     clearFieldError.call(field);
-    
+
     if (field.hasAttribute('required') && !value) {
         showFieldError(field, '此欄位為必填');
         return false;
     }
-    
+
     if (field.type === 'email' && value) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(value)) {
@@ -917,13 +893,13 @@ function validateField() {
             return false;
         }
     }
-    
+
     return true;
 }
 
 function showFieldError(field, message) {
     field.style.borderColor = '#e74c3c';
-    
+
     let errorElement = field.parentNode.querySelector('.field-error');
     if (!errorElement) {
         errorElement = document.createElement('div');
@@ -941,58 +917,30 @@ function showFieldError(field, message) {
 function clearFieldError() {
     const field = this;
     field.style.borderColor = '';
-    
+
     const errorElement = field.parentNode.querySelector('.field-error');
     if (errorElement) {
         errorElement.remove();
     }
 }
 
-// Enhanced Project Filters for Multi-page
-function initProjectFilters() {
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('.project-card');
-    
-    if (filterButtons.length === 0) return;
-    
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Remove active class from all buttons
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            // Add active class to clicked button
-            this.classList.add('active');
-            
-            const filter = this.getAttribute('data-filter');
-            
-            projectCards.forEach(card => {
-                const category = card.getAttribute('data-category');
-                if (filter === 'all' || category === filter) {
-                    card.style.display = 'block';
-                    card.style.animation = 'fadeIn 0.5s ease forwards';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
-    });
-}
 
 // Countdown Timer (only for index page)
 function initCountdownTimer() {
     const daysElement = document.getElementById('days');
     if (!daysElement) return; // Not on index page
-    
+
     // Set target date: 2026.04.22 13:00
     const targetDate = new Date('2026-04-22T13:00:00');
-    
+
     const hoursElement = document.getElementById('hours');
     const minutesElement = document.getElementById('minutes');
     const secondsElement = document.getElementById('seconds');
-    
+
     function updateCountdown() {
         const now = new Date().getTime();
         const distance = targetDate.getTime() - now;
-        
+
         if (distance < 0) {
             // Event has started
             daysElement.textContent = '00';
@@ -1001,24 +949,24 @@ function initCountdownTimer() {
             secondsElement.textContent = '00';
             return;
         }
-        
+
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
+
         // Add animation when numbers change
         updateNumberWithAnimation(daysElement, days.toString().padStart(2, '0'));
         updateNumberWithAnimation(hoursElement, hours.toString().padStart(2, '0'));
         updateNumberWithAnimation(minutesElement, minutes.toString().padStart(2, '0'));
         updateNumberWithAnimation(secondsElement, seconds.toString().padStart(2, '0'));
     }
-    
+
     function updateNumberWithAnimation(element, newValue) {
         if (element.textContent !== newValue) {
             element.style.transform = 'scale(1.1)';
             element.style.color = 'var(--accent-color)';
-            
+
             setTimeout(() => {
                 element.textContent = newValue;
                 element.style.transform = 'scale(1)';
@@ -1026,7 +974,7 @@ function initCountdownTimer() {
             }, 150);
         }
     }
-    
+
     // Update countdown every second
     updateCountdown();
     setInterval(updateCountdown, 1000);
@@ -1036,19 +984,19 @@ function initCountdownTimer() {
 function initSmoothScrolling() {
     // Handle both internal links and external page links
     const navLinks = document.querySelectorAll('.nav-menu a');
-    
+
     navLinks.forEach(link => {
         const href = link.getAttribute('href');
-        
+
         // If it's an internal anchor link
         if (href.startsWith('#')) {
-            link.addEventListener('click', function(e) {
+            link.addEventListener('click', function (e) {
                 e.preventDefault();
-                
+
                 const targetSection = document.querySelector(href);
                 if (targetSection) {
                     const offsetTop = targetSection.offsetTop - 100;
-                    
+
                     window.scrollTo({
                         top: offsetTop,
                         behavior: 'smooth'
@@ -1060,56 +1008,56 @@ function initSmoothScrolling() {
 }
 
 // Page-specific initialization
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Force theme initialization before other scripts
     const body = document.body;
     const savedTheme = localStorage.getItem('theme') || 'light';
     body.setAttribute('data-theme', savedTheme);
-    
+
     // Add page-specific classes for styling
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     document.body.classList.add(`page-${currentPage.replace('.html', '')}`);
-    
+
     // Initialize common functionality with a small delay to ensure DOM is ready
     setTimeout(() => {
         initializeWebsite();
     }, 100);
 });
 // Google Apps Script 表單提交處理
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // 添加延遲確保所有元素都已載入
-    setTimeout(function() {
+    setTimeout(function () {
         const registerForm = document.getElementById('registerForm');
-        
+
         if (registerForm) {
             console.log('找到註冊表單，開始設置事件監聽器');
-            
-            registerForm.addEventListener('submit', async function(e) {
+
+            registerForm.addEventListener('submit', async function (e) {
                 e.preventDefault(); // 防止默認提交
-                
+
                 console.log('表單提交事件觸發');
-                
+
                 // 顯示提交中狀態
                 const submitBtn = registerForm.querySelector('button[type="submit"]');
                 const originalText = submitBtn.innerHTML;
-                
+
                 submitBtn.innerHTML = '<span class="btn-text">提交中...</span><span class="btn-icon">⏳</span>';
                 submitBtn.disabled = true;
-                
+
                 // 收集表單資料 - 使用更可靠的方法
                 const nameInput = document.getElementById('name');
                 const emailInput = document.getElementById('email');
                 const titleSelect = document.getElementById('title');
                 const interestSelect = document.getElementById('interest');
                 const expectationsTextarea = document.getElementById('expectations');
-                
+
                 console.log('表單元素檢查:');
                 console.log('- 姓名欄位:', nameInput);
                 console.log('- 信箱欄位:', emailInput);
                 console.log('- 身份選單:', titleSelect);
                 console.log('- 興趣選單:', interestSelect);
                 console.log('- 期待欄位:', expectationsTextarea);
-                
+
                 const data = {
                     name: nameInput ? nameInput.value.trim() : '',
                     email: emailInput ? emailInput.value.trim() : '',
@@ -1126,7 +1074,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         second: '2-digit'
                     })
                 };
-                
+
                 // 除錯：在控制台顯示收集到的資料
                 console.log('收集到的表單資料:', data);
                 console.log('表單元素檢查:');
@@ -1135,7 +1083,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('- 身份選單:', titleSelect, '值:', titleSelect ? titleSelect.value : 'null');
                 console.log('- 興趣選單:', interestSelect, '值:', interestSelect ? interestSelect.value : 'null');
                 console.log('- 期待欄位:', expectationsTextarea, '值:', expectationsTextarea ? expectationsTextarea.value : 'null');
-                
+
                 // 除錯：檢查是否有空值
                 const emptyFields = [];
                 if (!data.name) emptyFields.push('姓名');
@@ -1146,19 +1094,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     submitBtn.disabled = false;
                     return;
                 }
-                
+
                 try {
                     // 使用設定檔中的 Google Apps Script 網址
                     const GOOGLE_SCRIPT_URL = CONFIG.GOOGLE_SCRIPT_URL;
-                    
+
                     // 檢查是否已設定正確的網址
                     if (GOOGLE_SCRIPT_URL.includes('YOUR_SCRIPT_ID_HERE')) {
                         throw new Error('請先設定 Google Apps Script 網址');
                     }
-                    
+
                     console.log('發送資料到 Google Apps Script:', GOOGLE_SCRIPT_URL);
                     console.log('發送的資料:', data);
-                    
+
                     // 發送到 Google Apps Script
                     const response = await fetch(GOOGLE_SCRIPT_URL, {
                         method: 'POST',
@@ -1168,12 +1116,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         },
                         body: JSON.stringify(data)
                     });
-                    
+
                     console.log('Google Apps Script 回應:', response);
-                    
+
                     // 由於 no-cors 模式，我們無法讀取回應內容
                     // 但如果沒有拋出錯誤，就表示請求已發送
-                    
+
                     // 顯示成功訊息
                     const confirmMessage = `✅ 報名成功！
 
@@ -1193,28 +1141,28 @@ document.addEventListener('DOMContentLoaded', function() {
 我們期待在活動中與您見面！`;
 
                     alert(confirmMessage);
-                    
+
                     // 跳轉到感謝頁面
                     window.location.href = 'thanks.html';
-                    
+
                 } catch (error) {
                     console.log('Google Apps Script 失敗，使用備用方案');
-                    
+
                     // 方案 B：備用報名方案
-                    alert('✅ 報名資料已記錄！\n\n' + 
-                          '感謝您的報名：\n' +
-                          '姓名：' + data.name + '\n' +
-                          '信箱：' + data.email + '\n' +
-                          '身份：' + (data.title || '未填寫') + '\n' +
-                          '興趣：' + (data.interest || '未填寫') + '\n\n' +
-                          '我們會透過以下方式與您確認：\n' +
-                          '📧 Email: 1stnhai@gmail.com\n' +
-                          '📱 Instagram: @nhai1st_208\n\n' +
-                          '感謝您的參與！');
-                    
+                    alert('✅ 報名資料已記錄！\n\n' +
+                        '感謝您的報名：\n' +
+                        '姓名：' + data.name + '\n' +
+                        '信箱：' + data.email + '\n' +
+                        '身份：' + (data.title || '未填寫') + '\n' +
+                        '興趣：' + (data.interest || '未填寫') + '\n\n' +
+                        '我們會透過以下方式與您確認：\n' +
+                        '📧 Email: 1stnhai@gmail.com\n' +
+                        '📱 Instagram: @nhai1st_208\n\n' +
+                        '感謝您的參與！');
+
                     // 跳轉到感謝頁面
                     window.location.href = 'thanks.html';
-                    
+
                     /* 本地測試模式 - 已停用
                     console.log('本地測試模式：模擬發送到 Google Apps Script');
                     console.log('資料:', data);
@@ -1234,35 +1182,35 @@ document.addEventListener('DOMContentLoaded', function() {
                     // 跳轉到感謝頁面
                     window.location.href = 'thanks.html';
                     */
-                    
+
                     // 恢復按鈕狀態
                     submitBtn.innerHTML = originalText;
                     submitBtn.disabled = false;
                 }
             });
-            
+
             // Google Forms 備用連結處理
             const googleFormLink = document.getElementById('googleFormLink');
             if (googleFormLink) {
-                googleFormLink.addEventListener('click', function(e) {
+                googleFormLink.addEventListener('click', function (e) {
                     e.preventDefault();
-                    
+
                     // 請替換為你的 Google Forms 連結
                     const formUrl = 'https://forms.gle/rt8XLEWq5uQ3u2Br6'; // 替換為實際的 Google Forms 連結
-                    
+
                     alert('🔄 即將跳轉到 Google 表單\n\n' +
-                          '我們將開啟 Google 表單讓您填寫報名資料。\n' +
-                          '這是一個完全可靠的備用方案！');
-                    
+                        '我們將開啟 Google 表單讓您填寫報名資料。\n' +
+                        '這是一個完全可靠的備用方案！');
+
                     // 在新視窗開啟 Google Forms
                     window.open(formUrl, '_blank');
                 });
             }
-            
+
             // 表單驗證增強
             const requiredFields = registerForm.querySelectorAll('[required]');
             requiredFields.forEach(field => {
-                field.addEventListener('blur', function() {
+                field.addEventListener('blur', function () {
                     if (!this.value.trim()) {
                         this.style.borderColor = '#ff6b6b';
                     } else {
@@ -1282,37 +1230,37 @@ class VotingSystem {
         this.votingStartDate = new Date('2026-04-22T13:00:00'); // 成發當天下午2點開始投票
         this.userVotes = JSON.parse(localStorage.getItem('userVotes') || '{}');
         this.voteCounts = JSON.parse(localStorage.getItem('voteCounts') || '{}');
-        
+
         this.init();
     }
-    
+
     init() {
         this.checkVotingStatus();
         this.setupVoteButtons();
         this.updateVoteCounts();
         this.startCountdown();
-        
+
         // 每分鐘檢查一次投票狀態
         setInterval(() => {
             this.checkVotingStatus();
         }, 60000);
     }
-    
+
     checkVotingStatus() {
         const now = new Date();
         const wasEnabled = this.votingEnabled;
         this.votingEnabled = now >= this.votingStartDate;
-        
+
         if (!wasEnabled && this.votingEnabled) {
             this.enableVoting();
         }
-        
+
         this.updateVoteButtons();
     }
-    
+
     enableVoting() {
         console.log('投票系統已開放！');
-        
+
         // 顯示通知
         const notification = document.createElement('div');
         notification.innerHTML = `
@@ -1339,17 +1287,17 @@ class VotingSystem {
             </div>
         `;
         document.body.appendChild(notification);
-        
+
         setTimeout(() => {
             if (notification.parentNode) {
                 notification.remove();
             }
         }, 5000);
     }
-    
+
     setupVoteButtons() {
         const voteButtons = document.querySelectorAll('.btn-vote');
-        
+
         voteButtons.forEach(button => {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -1358,41 +1306,41 @@ class VotingSystem {
             });
         });
     }
-    
+
     handleVote(projectId, button) {
         if (!this.votingEnabled) {
             alert('投票尚未開放，請等待成發開始！');
             return;
         }
-        
+
         if (this.userVotes[projectId]) {
             alert('您已經為這個專題投過票了！');
             return;
         }
-        
+
         // 檢查用戶是否已經投票給其他專題
         const hasVoted = Object.values(this.userVotes).some(voted => voted);
         if (hasVoted) {
             alert('您只能投票給一個專題！');
             return;
         }
-        
+
         // 執行投票
         this.userVotes[projectId] = true;
         this.voteCounts[projectId] = (this.voteCounts[projectId] || 0) + 1;
-        
+
         // 保存到 localStorage
         localStorage.setItem('userVotes', JSON.stringify(this.userVotes));
         localStorage.setItem('voteCounts', JSON.stringify(this.voteCounts));
-        
+
         // 更新顯示
         this.updateVoteCounts();
         button.classList.add('voted', 'vote-success');
-        
+
         // 顯示投票成功訊息
         this.showVoteSuccess(projectId);
     }
-    
+
     showVoteSuccess(projectId) {
         const message = document.createElement('div');
         message.innerHTML = `
@@ -1411,34 +1359,34 @@ class VotingSystem {
                 ✅ 投票成功！感謝您的支持！
             </div>
         `;
-        
+
         document.body.appendChild(message);
-        
+
         setTimeout(() => {
             message.remove();
         }, 3000);
     }
-    
+
     updateVoteCounts() {
         const voteElements = document.querySelectorAll('.popularity-vote');
-        
+
         voteElements.forEach(element => {
             const projectId = element.getAttribute('data-project');
             const countElement = element.querySelector('.vote-count');
             const count = this.voteCounts[projectId] || 0;
-            
+
             if (countElement) {
                 countElement.textContent = count;
             }
         });
     }
-    
+
     updateVoteButtons() {
         const voteButtons = document.querySelectorAll('.btn-vote');
-        
+
         voteButtons.forEach(button => {
             const projectId = button.getAttribute('data-project');
-            
+
             if (this.votingEnabled) {
                 button.disabled = false;
                 button.querySelector('.vote-text').textContent = '投票給我們';
@@ -1446,31 +1394,31 @@ class VotingSystem {
                 button.disabled = true;
                 button.querySelector('.vote-text').textContent = '投票給我們';
             }
-            
+
             if (this.userVotes[projectId]) {
                 button.classList.add('voted');
                 button.querySelector('.vote-text').textContent = '已投票';
             }
         });
     }
-    
+
     startCountdown() {
         if (this.votingEnabled) return;
-        
+
         const updateCountdown = () => {
             const now = new Date().getTime();
             const distance = this.votingStartDate.getTime() - now;
-            
+
             if (distance < 0) {
                 this.checkVotingStatus();
                 return;
             }
-            
+
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
+
             // 更新投票倒數計時（如果有的話）
             const countdownElements = document.querySelectorAll('.countdown-timer-vote');
             countdownElements.forEach(countdown => {
@@ -1478,18 +1426,18 @@ class VotingSystem {
                 const hoursEl = countdown.querySelector('.hours');
                 const minutesEl = countdown.querySelector('.minutes');
                 const secondsEl = countdown.querySelector('.seconds');
-                
+
                 if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
                 if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
                 if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
                 if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
             });
         };
-        
+
         updateCountdown();
         setInterval(updateCountdown, 1000);
     }
-    
+
     // 管理員功能：重置投票
     resetVotes() {
         if (confirm('確定要重置所有投票嗎？此操作無法復原！')) {
@@ -1502,7 +1450,7 @@ class VotingSystem {
             alert('投票已重置！');
         }
     }
-    
+
     // 獲取投票排行榜
     getVoteRanking() {
         const projects = [
@@ -1516,7 +1464,7 @@ class VotingSystem {
             { id: 'kebi-robot', name: '第八組 - 凱比機器人' },
             { id: 'smart-space', name: '第九組 - 方寸間的智慧' }
         ];
-        
+
         return projects
             .map(project => ({
                 ...project,
@@ -1527,7 +1475,7 @@ class VotingSystem {
 }
 
 // 初始化投票系統
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // 延遲初始化確保所有元素都已載入
     setTimeout(() => {
         window.votingSystem = new VotingSystem();
@@ -1535,7 +1483,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // 管理員快捷鍵：Ctrl+Shift+R 重置投票
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', function (e) {
     if (e.ctrlKey && e.shiftKey && e.key === 'R') {
         e.preventDefault();
         if (window.votingSystem) {
