@@ -3003,3 +3003,9 @@ body:not([data-theme]) {
 [data-theme="dark"] .project-stats span {
   background: transparent;
 }
+.btn-vote {
+    display: none !important;
+}
+.popularity-vote {
+    display: none !important;
+}
