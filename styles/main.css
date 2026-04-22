@@ -3497,5 +3497,55 @@ body {
 
   .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
   .register-content { grid-template-columns: 1fr; gap: 2rem; }
+
+  .hero {
+    padding: 0 1rem; /* 減少手機版的左右邊距 */
+  }
+
+  .hero-content {
+    width: 100%;
+    max-width: 100%; /* 確保不會超出螢幕 */
+    grid-template-columns: 1fr;
+    gap: 1.5rem; /* 縮小垂直間距 */
+    padding: 2rem 0;
+    overflow: hidden; /* 防止內容溢出 */
+  }
+
+  /* 2. 修正標題文字溢出 */
+  .hero-title {
+    font-size: 2.2rem; /* 稍微再調小一點點 */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* 3. 修正倒數計時器（最常見的溢出元兇） */
+  .countdown-timer {
+    gap: 0.5rem; /* 縮小方塊間的間距 */
+    width: 100%;
+    justify-content: center;
+  }
+
+  .countdown-item {
+    padding: 1rem 0.5rem;
+    min-width: 70px; /* 從 80px 降到 70px 或更小 */
+    flex: 1; /* 讓方塊平均分配空間 */
+    max-width: 85px;
+  }
+
+  .countdown-number {
+    font-size: 1.5rem; /* 縮小數字大小 */
+  }
+
+  /* 4. 修正按鈕寬度 */
+  .hero-buttons {
+    width: 100%;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .btn {
+    width: 100%; /* 讓按鈕在手機版佔滿寬度，比較好點擊 */
+    text-align: center;
+  }
 }
 /* TODO: 整理 CSS 檔案內容，尤其以 @media 部分為重 */
