@@ -163,6 +163,7 @@ const targetDate = new Date('2026-03-01T14:00:00');
 - 設計靈感來自現代 Web 設計趨勢
 - 小肥啾吉祥物概念
 - 開源社群的技術支持
+- Ryan Lai 協助的 RWD 修改
 
 ---
 
