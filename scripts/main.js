@@ -2,6 +2,28 @@
 
 // DOM Content Loaded
 document.addEventListener('DOMContentLoaded', function () {
+    const menuToggle = document.querySelector('#mobile-menu');
+    const navMenu = document.querySelector('.nav-menu');
+
+    // 切換手機選單
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('is-active');
+        navMenu.classList.toggle('active');
+    });
+
+    // 點擊連結後收合選單
+    document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click', () => {
+        menuToggle.classList.remove('is-active');
+        navMenu.classList.remove('active');
+    }));
+    
+    // 處理 Loading 畫面消失 (範例)
+    window.addEventListener('load', () => {
+        const loading = document.getElementById('loading');
+        setTimeout(() => {
+            loading.classList.add('hidden');
+        }, 1000);
+    });
     initializeWebsite();
 });
 
@@ -1491,6 +1513,7 @@ document.addEventListener('keydown', function (e) {
         }
     }
 });
+
 
 // 添加 CSS 動畫
 const style = document.createElement('style');
